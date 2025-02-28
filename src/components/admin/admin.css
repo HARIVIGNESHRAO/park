@@ -1,0 +1,211 @@
+/* Admin Dashboard Styling */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3498db;
+}
+
+.users-table {
+  width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+thead {
+  background-color: #3498db;
+  color: white;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #f5f8fa;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  margin: 50px 0;
+}
+
+.loading {
+  color: #3498db;
+}
+
+.error {
+  color: #e74c3c;
+  background-color: #fadbd8;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+/* Styling for the details/summary elements */
+details {
+  cursor: pointer;
+  position: relative;
+}
+
+summary {
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+summary:hover {
+  background-color: #2980b9;
+}
+
+details[open] summary {
+  margin-bottom: 10px;
+}
+
+details ul {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  /* Add scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #f8f9fa;
+}
+
+/* Custom scrollbar for Chrome, Edge, and Safari */
+details ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+details ul::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+details ul::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 4px;
+}
+
+details li {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+details li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Fix table layout */
+table {
+  table-layout: fixed;
+}
+
+/* Set column widths */
+th:nth-child(1), td:nth-child(1) { width: 15%; } /* Username */
+th:nth-child(2), td:nth-child(2) { width: 15%; } /* Total Analyses */
+th:nth-child(3), td:nth-child(3) { width: 20%; } /* Last Analysis Date */
+th:nth-child(4), td:nth-child(4) { width: 50%; } /* Details */
+
+/* Make sure content doesn't overflow cells */
+td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 10px;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  /* Stack columns on mobile */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  /* Add labels for mobile view */
+  td:nth-of-type(1):before { content: "Username"; }
+  td:nth-of-type(2):before { content: "Total Analyses"; }
+  td:nth-of-type(3):before { content: "Last Analysis Date"; }
+  td:nth-of-type(4):before { content: "Details"; }
+
+  /* Reset widths for mobile */
+  th:nth-child(1), td:nth-child(1),
+  th:nth-child(2), td:nth-child(2),
+  th:nth-child(3), td:nth-child(3),
+  th:nth-child(4), td:nth-child(4) {
+    width: 100%;
+  }
+}

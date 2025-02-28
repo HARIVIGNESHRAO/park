@@ -80,7 +80,11 @@ const Login = () => {
         });
         localStorage.setItem("username", loginUsername);
         alert(response.data.message);
-        navigate("/home");
+if (loginUsername === "raghu" && loginPassword === "raghu") {
+          navigate("/admin");
+        } else {
+          navigate("/home");
+        }
       } else {
         if (regPassword !== regRepeatPassword) {
           alert("Passwords do not match");

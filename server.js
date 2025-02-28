@@ -236,7 +236,28 @@ app.post("/save_analysis", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+// Get All Users Route
+app.get("/users", async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await User.find()
+      .select('-password') // Exclude password field from the response for security
+      .lean(); // Convert to plain JavaScript objects
 
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+
+    res.status(200).json({
+      message: "Users retrieved successfully",
+      count: users.length,
+      users: users
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error.message);
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
 
 // Start Server
 const PORT = 5001;

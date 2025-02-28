@@ -9,9 +9,9 @@ const CarouselPage = () => {
   // Sample image data - replace with your actual images
   const images = [
     { id: 1, src: "/images/vydyavano.png", alt: "Carousel Image 1" },
-    { id: 2, src: "/images/img_4.png", alt: "Carousel Image 2" },
+    { id: 2, src: "/images/vydya.jpg", alt: "Carousel Image 2" },
     { id: 3, src: "/images/vydyavano.png", alt: "Carousel Image 3" },
-    { id: 4, src: "/images/img_4.png", alt: "Carousel Image 4" },
+    { id: 4, src: "/images/vydya.jpg", alt: "Carousel Image 4" },
     { id: 5, src: "/images/vydyavano.png", alt: "Carousel Image 5" }
   ];
 
