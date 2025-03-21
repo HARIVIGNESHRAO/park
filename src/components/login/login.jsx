@@ -1,230 +1,130 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./login.css";
+import React, { useState } from 'react';
+import styles from './login.module.css';
+import { FaFacebookF, FaGooglePlusG, FaLinkedinIn } from 'react-icons/fa';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [isLoginActive, setIsLoginActive] = useState(true);
-  const [loginUsername, setLoginUsername] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [regUsername, setRegUsername] = useState("");
-  const [regPassword, setRegPassword] = useState("");
-  const [regRepeatPassword, setRegRepeatPassword] = useState("");
-  const loginButtonRef = useRef(null);
-  const shapeRef = useRef(null);
-  const overboxRef = useRef(null);
+  const [isRightPanelActive, setIsRightPanelActive] = useState(false);
+  const [username, setUsername] = useState(''); // Changed from email to username
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState(''); // Kept for signup form
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleFocus = (e) => {
-    const inputParent = e.target.parentElement;
-    const label = inputParent.querySelector("label");
-    const spin = inputParent.querySelector(".spin");
-    if (label && spin) {
-      label.style.lineHeight = "18px";
-      label.style.fontSize = "18px";
-      label.style.fontWeight = "100";
-      label.style.top = "0px";
-      spin.style.width = "100%";
-    }
-  };
+  const handleSignUpClick = () => setIsRightPanelActive(true);
+  const handleSignInClick = () => setIsRightPanelActive(false);
 
-  const handleBlur = (e) => {
-    const inputParent = e.target.parentElement;
-    const label = inputParent.querySelector("label");
-    const spin = inputParent.querySelector(".spin");
-    if (label && spin) {
-      spin.style.width = "0px";
-      if (!e.target.value) {
-        label.style.lineHeight = "60px";
-        label.style.fontSize = "24px";
-        label.style.fontWeight = "300";
-        label.style.top = "10px";
-      }
-    }
-  };
-
-  const handleButtonClick = async (e, isLogin = true) => {
-    console.log("Button clicked, isLogin:", isLogin);
-    const button = isLogin ? loginButtonRef.current : e.currentTarget;
-    const rect = button.getBoundingClientRect();
-    const pX = e.clientX - rect.left;
-    const pY = e.clientY - rect.top;
-
-    const span = document.createElement("span");
-    span.className = "click-efect";
-    span.style.marginLeft = `${pX}px`;
-    span.style.marginTop = `${pY}px`;
-    button.appendChild(span);
-
-    span.animate(
-      {
-        width: ["0px", "500px"],
-        height: ["0px", "500px"],
-        top: ["0px", "-250px"],
-        left: ["0px", "-250px"],
-      },
-      { duration: 600, fill: "forwards" }
-    );
-
-    button.classList.add("active");
-    setTimeout(() => {
-      span.remove();
-      button.classList.remove("active");
-    }, 600);
-
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     try {
-      if (isLogin) {
-        const response = await axios.post("http://localhost:5001/login", {
-          username: loginUsername,
-          password: loginPassword,
-        });
-        localStorage.setItem("username", loginUsername);
-        alert(response.data.message);
-if (loginUsername === "raghu" && loginPassword === "raghu") {
-          navigate("/admin");
-        } else {
-          navigate("/home");
-        }
-      } else {
-        if (regPassword !== regRepeatPassword) {
-          alert("Passwords do not match");
-          return;
-        }
-        const response = await axios.post("http://localhost:5001/register", {
-          username: regUsername,
-          password: regPassword,
-        });
-        localStorage.setItem("username", regUsername);
-        alert(response.data.message);
-        navigate("/home");
-      }
-    } catch (error) {
-      alert(error.response?.data?.error || "An error occurred");
-    }
-  };
-
-  const toggleForm = () => {
-    const shape = shapeRef.current;
-    const overbox = overboxRef.current;
-
-    if (isLoginActive) {
-      setIsLoginActive(false);
-      setTimeout(() => {
-        shape.style.width = "50%";
-        shape.style.height = "50%";
-        shape.style.transform = "rotate(45deg)";
-        overbox.style.overflow = "hidden";
-        overbox.querySelectorAll(".title, .input, .button").forEach((el) => {
-          el.style.display = "block";
-          el.style.opacity = "1";
-        });
-      }, 200);
-    } else {
-      shape.style.width = "100%";
-      shape.style.height = "100%";
-      shape.style.transform = "rotate(0deg)";
-      overbox.querySelectorAll(".title, .input, .button").forEach((el) => {
-        el.style.opacity = "0";
+      const response = await axios.post('http://localhost:5001/register', {
+        username,
+        password
       });
-      setTimeout(() => {
-        overbox.style.overflow = "initial";
-        setIsLoginActive(true);
-      }, 600);
+      alert(response.data.message);
+      setIsRightPanelActive(false); // Switch to login after signup
+      setName('');
+      setUsername('');
+      setPassword('');
+      setError('');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed');
     }
   };
+const handleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5001/login', {
+        username,
+        password
+      }, { withCredentials: true });
+      Cookies.set('username', response.data.username, {
+        expires: 1,
+        path: '/',
+        domain: 'localhost' // Explicitly set domain
+      });
+      console.log('Cookie set in Login:', Cookies.get('username')); // Debug
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login failed');
+    }
+  }
 
   return (
-    <div className="materialContainer">
-      <div className={`box ${!isLoginActive ? "back" : ""}`}>
-        <div className="title">LOGIN</div>
-        <div className="input">
-          <label htmlFor="name">Username</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={loginUsername}
-            onChange={(e) => setLoginUsername(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <span className="spin"></span>
+    <div className={styles.pageWrapper}>
+      <div className={`${styles.container} ${isRightPanelActive ? styles.rightPanelActive : ''}`}>
+        <div className={`${styles.formContainer} ${styles.signUpContainer}`}>
+          <form onSubmit={handleSignUp}>
+            <h1>Create Account</h1>
+            <div className={styles.socialContainer}>
+              <a href="#" className={styles.social}><FaFacebookF /></a>
+              <a href="#" className={styles.social}><FaGooglePlusG /></a>
+              <a href="#" className={styles.social}><FaLinkedinIn /></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="text" // Changed to text since backend uses username
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error && <p className={styles.error}>{error}</p>}
+            <button type="submit">Sign Up</button>
+          </form>
         </div>
-        <div className="input">
-          <label htmlFor="pass">Password</label>
-          <input
-            type="password"
-            name="pass"
-            id="pass"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <span className="spin"></span>
+        <div className={`${styles.formContainer} ${styles.signInContainer}`}>
+          <form onSubmit={handleSignIn}>
+            <h1>Sign In</h1>
+            <div className={styles.socialContainer}>
+              <a href="#" className={styles.social}><FaFacebookF /></a>
+              <a href="#" className={styles.social}><FaGooglePlusG /></a>
+              <a href="#" className={styles.social}><FaLinkedinIn /></a>
+            </div>
+            <span>or use your account</span>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <a href="#">Forgot your password?</a>
+            {error && <p className={styles.error}>{error}</p>}
+            <button type="submit">Sign In</button>
+          </form>
         </div>
-        <div className="button login">
-          <button ref={loginButtonRef} onClick={(e) => handleButtonClick(e, true)}>
-            <span>GO</span>
-            <i className="fas fa-check"></i>
-          </button>
-        </div>
-        <a href="#" className="pass-forgot">
-          Forgot your password?
-        </a>
-      </div>
-
-      <div className="overbox" ref={overboxRef}>
-        <div
-          className={`material-button alt-2 ${!isLoginActive ? "active" : ""}`}
-          onClick={toggleForm}
-        >
-          <span className="shape" ref={shapeRef}></span>
-        </div>
-        <div className="title">REGISTER</div>
-        <div className="input">
-          <label htmlFor="regname">Username</label>
-          <input
-            type="text"
-            name="regname"
-            id="regname"
-            value={regUsername}
-            onChange={(e) => setRegUsername(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <span className="spin"></span>
-        </div>
-        <div className="input">
-          <label htmlFor="regpass">Password</label>
-          <input
-            type="password"
-            name="regpass"
-            id="regpass"
-            value={regPassword}
-            onChange={(e) => setRegPassword(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <span className="spin"></span>
-        </div>
-        <div className="input">
-          <label htmlFor="reregpass">Repeat Password</label>
-          <input
-            type="password"
-            name="reregpass"
-            id="reregpass"
-            value={regRepeatPassword}
-            onChange={(e) => setRegRepeatPassword(e.target.value)}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <span className="spin"></span>
-        </div>
-        <div className="button">
-          <button onClick={(e) => handleButtonClick(e, false)}>
-            <span>NEXT</span>
-          </button>
+        <div className={styles.overlayContainer}>
+          <div className={styles.overlay}>
+            <div className={`${styles.overlayPanel} ${styles.overlayLeft}`}>
+              <h1>Welcome Back!</h1>
+              <p>To keep connected with us please login with your personal info</p>
+              <button className={styles.ghost} onClick={handleSignInClick}>Sign In</button>
+            </div>
+            <div className={`${styles.overlayPanel} ${styles.overlayRight}`}>
+              <h1>Hello, Friend!</h1>
+              <p>Enter your personal details and start your journey with us</p>
+              <button className={styles.ghost} onClick={handleSignUpClick}>Sign Up</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -48,3 +48,19 @@ h2 {
 .back-button:hover {
   background: #5a5af9;
 }
+.toggle-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-container label {
+  font-size: 16px;
+}
+
+.toggle-container input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

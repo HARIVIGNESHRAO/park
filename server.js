@@ -5,13 +5,18 @@ const cors = require("cors");
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const PDFDocument = require('pdfkit'); // Add pdfkit for PDF generation
+const PDFDocument = require('pdfkit');
+const cookieParser = require('cookie-parser'); // Added for cookie support
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow React frontend
+  credentials: true // Enable cookies
+}));
+app.use(cookieParser()); // Added cookie-parser middleware
 
 // MongoDB Atlas Connection
 mongoose.connect(
@@ -66,10 +71,10 @@ const upload = multer({
   }
 });
 
-// Mock analysis function (replace with Whisper/Groq integration)
+// Mock analysis function
 const analyzeTranscription = (transcription) => {
   return {
-    Emotions: ['happy', 'calm'], // Placeholder
+    Emotions: ['happy', 'calm'],
     Reasons: 'The tone suggests positive feelings',
     Suggestions: ['Continue positive activities', 'Maintain routine']
   };
@@ -99,7 +104,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Route
+// Login Route - Modified to set cookie
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -113,17 +118,21 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
-    // Return username in response
+    // Remove res.cookie() - rely on frontend
     res.status(200).json({ message: "Login successful", username });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
+app.post("/logout", (req, res) => {
+  res.clearCookie('username', { path: '/' }); // Still clear if any backend cookie exists
+  res.status(200).json({ message: "Logout successful" });
+});
 
 // Analyze Audio Route
 app.post("/analyze_audio", upload.single('file'), async (req, res) => {
-  const { username } = req.body; // Get username from request body
+  const { username } = req.body;
 
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
@@ -139,15 +148,13 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
       return res.status(401).json({ error: "User not found" });
     }
 
-    // Placeholder for actual transcription logic (replace with Whisper)
     const transcription = "Sample transcription from audio";
     const analysis = analyzeTranscription(transcription);
 
-    // Store analysis result under the username
     user.analyses.push({ transcription, analysis });
     await user.save();
 
-    fs.unlinkSync(req.file.path); // Clean up uploaded file
+    fs.unlinkSync(req.file.path);
 
     res.json({ username, transcription, analysis });
   } catch (error) {
@@ -157,7 +164,6 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
-
 
 // Generate PDF Route
 app.post("/generate_pdf", async (req, res) => {
@@ -177,7 +183,6 @@ app.post("/generate_pdf", async (req, res) => {
     const filename = `mental_health_report_${Date.now()}.pdf`;
     doc.pipe(fs.createWriteStream(filename));
 
-    // PDF Content
     doc.fontSize(22).text('Mental Health Analysis Report', { align: 'center' });
     doc.fontSize(10).text(`Date: ${new Date().toLocaleString()}`, { align: 'left' });
     doc.moveDown();
@@ -201,7 +206,7 @@ app.post("/generate_pdf", async (req, res) => {
 
     res.download(filename, 'Analysis_Report.pdf', (err) => {
       if (!err) {
-        fs.unlinkSync(filename); // Clean up after download
+        fs.unlinkSync(filename);
       } else {
         console.error('Download error:', err);
       }
@@ -210,6 +215,7 @@ app.post("/generate_pdf", async (req, res) => {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
+
 app.post("/save_analysis", async (req, res) => {
   const { username, transcription, analysis } = req.body;
 
@@ -224,7 +230,6 @@ app.post("/save_analysis", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Save the analysis in MongoDB
     user.analyses.push({ transcription, analysis });
     await user.save();
 
@@ -236,13 +241,13 @@ app.post("/save_analysis", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 // Get All Users Route
 app.get("/users", async (req, res) => {
   try {
-    // Fetch all users from the database
     const users = await User.find()
-      .select('-password') // Exclude password field from the response for security
-      .lean(); // Convert to plain JavaScript objects
+      .select('-password')
+      .lean();
 
     if (!users || users.length === 0) {
       return res.status(404).json({ message: "No users found" });

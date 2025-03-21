@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Mic, Upload, FileText, X, Sparkles } from "lucide-react";
+import { Mic, Upload, FileText, X, Sparkles, Globe } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 
@@ -9,13 +9,24 @@ const HomePage = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default to English
   const fileInputRef = useRef(null);
   const containerRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const navigate = useNavigate();
 
-  // Track mouse position for interactive background effect
+  // Language options with Telugu and Hindi added
+  const languages = [
+    { code: "en", name: "English" },
+    { code: "es", name: "Spanish" },
+    { code: "fr", name: "French" },
+    { code: "de", name: "German" },
+    { code: "zh", name: "Chinese" },
+    { code: "te", name: "Telugu" },  // Added Telugu
+    { code: "hi", name: "Hindi" },   // Added Hindi
+  ];
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (containerRef.current) {
@@ -30,7 +41,6 @@ const HomePage = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Start recording audio
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -41,14 +51,14 @@ const HomePage = () => {
         audioChunksRef.current.push(e.data);
       };
 
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-        const audioFile = new File([audioBlob], "mic_recording.wav", {
-          type: "audio/wav",
-        });
-        submitAudio(audioFile);
-        stream.getTracks().forEach((track) => track.stop());
-      };
+  mediaRecorderRef.current.onstop = () => {
+    const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+    const audioFile = new File([audioBlob], "mic_recording.wav", {
+      type: "audio/wav",
+    });
+    submitAudio(audioFile); // Calls submitAudio
+    stream.getTracks().forEach((track) => track.stop());
+  };
 
       mediaRecorderRef.current.start();
       setIsListening(true);
@@ -59,7 +69,6 @@ const HomePage = () => {
     }
   };
 
-  // Stop recording
   const stopRecording = () => {
     if (mediaRecorderRef.current && isListening) {
       mediaRecorderRef.current.stop();
@@ -67,7 +76,6 @@ const HomePage = () => {
     }
   };
 
-  // Handle mic click - toggle recording
   const handleMicClick = () => {
     if (!isListening) {
       startRecording();
@@ -76,14 +84,12 @@ const HomePage = () => {
     }
   };
 
-  // Handle file upload
   const handleFileChange = (e) => {
     if (e.target.files.length > 0) {
       setUploadedFile(e.target.files[0]);
     }
   };
 
-  // Handle file drop
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
@@ -99,48 +105,47 @@ const HomePage = () => {
 
   const handleDragLeave = () => setIsDragging(false);
 
-  // Clear file
   const clearFile = () => {
     setUploadedFile(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Submit audio to Flask API
-  const submitAudio = async (file) => {
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
+const submitAudio = async (file) => {
+  setIsLoading(true);
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("language", selectedLanguage);
 
-    try {
-      const response = await fetch("http://127.0.0.1:5000/analyze_audio", {
-        method: "POST",
-        body: formData,
-      });
+  try {
+    const response = await fetch("http://127.0.0.1:5000/analyze_audio", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      navigate("/result", {
-        state: {
-          transcription: data.transcription,
-          analysis: data.analysis || data.analysis_raw,
-        },
-      });
-    } catch (err) {
-      console.error("Error submitting audio:", err);
-      alert(`Failed to process audio: ${err.message}`);
-    } finally {
-      setIsLoading(false);
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
     }
-  };
 
-  // Handle submit button click
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    navigate("/result", {
+      state: {
+        transcription: data.transcription,
+        analysis: data.analysis || data.analysis_raw,
+        language: selectedLanguage,
+      },
+    });
+  } catch (err) {
+    console.error("Fetch error details:", err); // Line 143
+    alert(`Failed to process audio: ${err.message}`);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   const handleSubmit = () => {
     if (uploadedFile) {
       submitAudio(uploadedFile);
@@ -208,6 +213,22 @@ const HomePage = () => {
         </div>
 
         <div className={`upload-container ${isListening ? "fade-out" : ""}`}>
+          <div className="language-selector">
+            <Globe className="globe-icon" />
+            <select
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value)}
+              className="language-dropdown"
+              disabled={isLoading}
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div
             className={`drop-zone ${isDragging ? "dragging" : ""} ${uploadedFile ? "has-file" : ""}`}
             onDragOver={handleDragOver}

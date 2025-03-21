@@ -537,3 +537,34 @@
     width: 100%;
   }
 }
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.globe-icon {
+  width: 20px;
+  height: 20px;
+  color: #666;
+}
+
+.language-dropdown {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-dropdown:hover {
+  border-color: #999;
+}
+
+.language-dropdown:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

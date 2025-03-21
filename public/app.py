@@ -11,13 +11,13 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
-
+from googletrans import Translator, LANGUAGES
 app = Flask(__name__)
 CORS(app)
 
 # Load Whisper model once at startup
 model = whisper.load_model("small")
-
+translator = Translator()
 UPLOAD_FOLDER = "uploads"
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -26,6 +26,17 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {"mp3", "wav", "m4a"}
 
 client = Groq(api_key="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")
+
+# Supported languages for Whisper (partial list, expand as needed)
+SUPPORTED_LANGUAGES = {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "zh": "Chinese",
+    "te": "Telugu",
+    "hi": "Hindi"
+}
 
 
 def allowed_file(filename):
@@ -41,15 +52,17 @@ def clean_response(response):
     return response
 
 
-def analyze_transcription(transcribed_text):
+def analyze_transcription(transcribed_text, language="en"):
+    language_name = SUPPORTED_LANGUAGES.get(language, "English")
     prompt = f"""
     Return only a valid JSON object with the following structure, without any explanations or extra text:
     {{
       "Emotions": ["List of emotions"],
       "Reasons": "Explanation of possible reasons",
-      "Suggestions": ["List of practical advice"]
+      "Suggestions": ["List of practical advice"],
+      "Language": "{language_name}"
     }}
-    Analyze the given text accordingly:
+    Analyze the given text accordingly, considering it is in {language_name}:
     Text: "{transcribed_text}"
     """
     try:
@@ -64,17 +77,18 @@ def analyze_transcription(transcribed_text):
         print("Raw API response:", response)  # Debug output
 
         try:
-            json.loads(response)  # Verify it's valid JSON
+            json.loads(response)
             return response
         except json.JSONDecodeError:
             return json.dumps({
                 "Emotions": [],
                 "Reasons": "Error processing response",
                 "Suggestions": [],
+                "Language": language_name,
                 "error": f"Invalid JSON from API: {response}"
             })
     except Exception as e:
-        return json.dumps({"error": f"Groq API error: {str(e)}"})
+        return json.dumps({"error": f"Groq API error: {str(e)}", "Language": language_name})
 
 
 def draw_border(canvas, doc):
@@ -99,6 +113,7 @@ def generate_pdf(api_response, filename="mental_health_report.pdf"):
     elements.append(Paragraph("Mental Health Analysis Report", title_style))
     elements.append(Spacer(1, 12))
     elements.append(Paragraph(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", normal_style))
+    elements.append(Paragraph(f"Language: {data.get('Language', 'English')}", normal_style))
     elements.append(Spacer(1, 12))
 
     elements.append(Paragraph("Emotions Identified:", styles['Heading2']))
@@ -125,27 +140,38 @@ def analyze_audio():
         return jsonify({"error": "No file part"}), 400
 
     file = request.files["file"]
+    language = request.form.get("language", "en")  # Get language from form data, default to English
+
     if file.filename == "" or not allowed_file(file.filename):
         return jsonify({"error": "Invalid or no selected file"}), 400
+
+    if language not in SUPPORTED_LANGUAGES:
+        return jsonify({"error": f"Unsupported language: {language}"}), 400
 
     filename = secure_filename(file.filename)
     filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(filepath)
 
     try:
-        transcription = model.transcribe(filepath)
+        # Transcribe with specified language
+        transcription = model.transcribe(filepath, language=language)
         transcribed_text = transcription["text"]
-        api_output = analyze_transcription(transcribed_text)
+        api_output = analyze_transcription(transcribed_text, language)
         os.remove(filepath)
 
         try:
             analysis = json.loads(api_output)
-            result = {"transcription": transcribed_text, "analysis": analysis}
+            result = {
+                "transcription": transcribed_text,
+                "analysis": analysis,
+                "language": language
+            }
         except json.JSONDecodeError:
             result = {
                 "transcription": transcribed_text,
                 "analysis_raw": api_output,
-                "error": "Failed to parse API output as JSON"
+                "error": "Failed to parse API output as JSON",
+                "language": language
             }
 
         return jsonify(result)
@@ -166,7 +192,25 @@ def generate_pdf_route():
         return send_file(pdf_filename, as_attachment=True)
     except Exception as e:
         return jsonify({"error": f"PDF generation error: {str(e)}"}), 500
+@app.route('/translate', methods=['POST'])
+def translate_text():
+    try:
+        # Get data from the request
+        data = request.get_json()
+        text = data.get('text')
+        target_language = data.get('targetLanguage', 'en')  # Default to English
 
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+
+        # Perform translation
+        translated = translator.translate(text, dest=target_language)
+        translated_text = translated.text
+
+        return jsonify({'translatedText': translated_text}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
