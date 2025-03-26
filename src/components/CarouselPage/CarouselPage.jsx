@@ -96,8 +96,23 @@ const Home = () => {
             </div>
           </div>
           <div className="hero-image">
-            <div className="wave-animation"></div>
-          </div>
+  <div className="wave-animation">
+    <div className="robot-ear left"></div>
+    <div className="robot-ear right"></div>
+    <div className="robot-arm left"></div>
+    <div className="robot-arm right"></div>
+    <div className="robot-screen">
+      <div className="robot-expression"></div>
+      <div className="robot-mouth"></div>
+    </div>
+    <div className="soundwave left"></div>
+    <div className="soundwave right"></div>
+    <div className="thinking-dot"></div>
+    <div className="thinking-dot"></div>
+    <div className="thinking-dot"></div>
+  </div>
+</div>
+
         </section>
         <section className="features-section">
           <h2>Emotion Recognition Features</h2>
