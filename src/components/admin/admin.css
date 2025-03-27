@@ -3,209 +3,309 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
+  color: #2c3e50;
+  background-color: #f9f9f9;
 }
 
 h1 {
   color: #2c3e50;
+  font-size: 28px;
+  text-align: center;
   margin-bottom: 30px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #3498db;
+  border-bottom: 3px solid #3498db;
+  font-weight: 600;
 }
 
+/* Dashboard Controls */
+.dashboard-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  padding: 10px;
+  width: 50%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.export-btn {
+  background: #3498db;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+}
+
+.export-btn:hover {
+  background: #1f78c1;
+  transform: translateY(-2px);
+}
+
+/* Table Styling */
 .users-table {
   width: 100%;
   overflow-x: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background: white;
+  padding: 10px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
+  border-radius: 12px;
 }
 
 thead {
   background-color: #3498db;
   color: white;
+  border-radius: 12px;
 }
 
 th, td {
-  padding: 12px 15px;
+  padding: 14px 18px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 15px;
 }
 
 th {
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+}
+
+th:hover {
+  background-color: #1f78c1;
+  transition: background 0.3s ease;
 }
 
 tr:hover {
-  background-color: #f5f8fa;
+  background-color: #f2f6fc;
+  transition: background 0.3s ease;
 }
 
-.loading, .error {
+/* Button Styling */
+.details-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #3498db;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px; /* Reduced padding to align better */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3); /* Smaller shadow */
+}
+
+.details-btn:hover {
+  background: #1f78c1;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #e74c3c;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px; /* Match details-btn padding */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3); /* Smaller shadow */
+  margin-left: 8px; /* Space between buttons */
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+td .button-group {
+  display: flex;
+  align-items: center;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 0 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination button:hover {
+  background: #1f78c1;
+  transform: translateY(-2px);
+}
+
+.pagination span {
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+/* MODAL STYLING */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+  z-index: 1100;
+}
+
+.modal-close:hover {
+  background: #1f78c1;
+  transform: translateY(-2px);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Loading and Error Styling */
+.loading {
   text-align: center;
   padding: 20px;
-  font-size: 18px;
-  margin: 50px 0;
-}
-
-.loading {
   color: #3498db;
 }
 
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #3498db;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .error {
+  text-align: center;
+  padding: 20px;
   color: #e74c3c;
-  background-color: #fadbd8;
-  border-radius: 4px;
-  padding: 15px;
+  background: #fceae9;
+  border-radius: 6px;
+  margin: 20px;
 }
 
-/* Styling for the details/summary elements */
-details {
-  cursor: pointer;
-  position: relative;
-}
-
-summary {
-  padding: 8px 12px;
-  background-color: #3498db;
-  color: white;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-summary:hover {
-  background-color: #2980b9;
-}
-
-details[open] summary {
-  margin-bottom: 10px;
-}
-
-details ul {
-  list-style-type: none;
-  padding: 10px;
-  margin: 0;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  max-height: 300px;
-  overflow-y: auto;
-  /* Add scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: #3498db #f8f9fa;
-}
-
-/* Custom scrollbar for Chrome, Edge, and Safari */
-details ul::-webkit-scrollbar {
-  width: 8px;
-}
-
-details ul::-webkit-scrollbar-track {
-  background: #f8f9fa;
-  border-radius: 4px;
-}
-
-details ul::-webkit-scrollbar-thumb {
-  background-color: #3498db;
-  border-radius: 4px;
-}
-
-details li {
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-details li:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-/* Fix table layout */
-table {
-  table-layout: fixed;
-}
-
-/* Set column widths */
-th:nth-child(1), td:nth-child(1) { width: 15%; } /* Username */
-th:nth-child(2), td:nth-child(2) { width: 15%; } /* Total Analyses */
-th:nth-child(3), td:nth-child(3) { width: 20%; } /* Last Analysis Date */
-th:nth-child(4), td:nth-child(4) { width: 50%; } /* Details */
-
-/* Make sure content doesn't overflow cells */
-td {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Responsive adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
   .admin-container {
     padding: 10px;
-  }
-
-  th, td {
-    padding: 8px 10px;
   }
 
   h1 {
     font-size: 24px;
   }
 
-  /* Stack columns on mobile */
-  table, thead, tbody, th, td, tr {
-    display: block;
+  th, td {
+    padding: 10px;
+    font-size: 14px;
   }
 
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  .details-btn, .delete-btn, .export-btn {
+    padding: 8px 12px;
+    font-size: 14px;
   }
 
-  tr {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  .modal-content {
+    width: 80%;
+    max-height: 70vh;
   }
 
-  td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
+  .dashboard-controls {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  td:before {
-    position: absolute;
-    top: 12px;
-    left: 10px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  /* Add labels for mobile view */
-  td:nth-of-type(1):before { content: "Username"; }
-  td:nth-of-type(2):before { content: "Total Analyses"; }
-  td:nth-of-type(3):before { content: "Last Analysis Date"; }
-  td:nth-of-type(4):before { content: "Details"; }
-
-  /* Reset widths for mobile */
-  th:nth-child(1), td:nth-child(1),
-  th:nth-child(2), td:nth-child(2),
-  th:nth-child(3), td:nth-child(3),
-  th:nth-child(4), td:nth-child(4) {
+  .search-input {
     width: 100%;
+  }
+
+  .delete-btn {
+    margin-left: 4px; /* Reduced spacing for smaller screens */
   }
 }
