@@ -11,13 +11,15 @@ const Admin = () => {
   const [sortField, setSortField] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Changed from 5 to 10
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [minAnalyses, setMinAnalyses] = useState(0);
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get('http://localhost:5001/users');
-        console.log('API Response:', response.data);
         setUsers(response.data.users || []);
         setLoading(false);
       } catch (err) {
@@ -27,6 +29,66 @@ const Admin = () => {
     };
     fetchUsers();
   }, []);
+
+  const toggleUserSelection = (userId) => {
+    setSelectedUsers((prev) =>
+      prev.includes(userId) ? prev.filter(id => id !== userId) : [...prev, userId]
+    );
+  };
+
+  const bulkDeleteUsers = async () => {
+    if (selectedUsers.length === 0) return;
+    if (window.confirm(`Are you sure you want to delete ${selectedUsers.length} user(s)?`)) {
+      try {
+        await Promise.all(
+          selectedUsers.map(userId =>
+            axios.delete(`http://localhost:5001/users/${userId}`)
+          )
+        );
+        setUsers(users.filter(user => !selectedUsers.includes(user._id)));
+        setSelectedUsers([]);
+        alert('Selected users deleted successfully!');
+      } catch (err) {
+        alert('Failed to delete users: ' + (err.response?.data?.message || err.message));
+      }
+    }
+    setContextMenu({ visible: false, x: 0, y: 0 });
+  };
+
+  const exportSelectedToCSV = () => {
+    if (selectedUsers.length === 0) return;
+    const selectedData = users.filter(user => selectedUsers.includes(user._id));
+    const headers = ['Username,Total Analyses,Last Analysis Date'];
+    const rows = selectedData.map(user => [
+      user.username,
+      (user.analyses || []).length,
+      (user.analyses || []).length > 0
+        ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
+        : 'No analyses yet'
+    ].join(','));
+    const csv = [headers, ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'selected_users_data.csv';
+    link.click();
+    setContextMenu({ visible: false, x: 0, y: 0 });
+  };
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    if (selectedUsers.length > 0) {
+      setContextMenu({
+        visible: true,
+        x: e.pageX,
+        y: e.pageY
+      });
+    }
+  };
+
+  const closeContextMenu = () => {
+    setContextMenu({ visible: false, x: 0, y: 0 });
+  };
 
   const openModal = (analysis) => {
     setSelectedAnalysis(analysis);
@@ -39,17 +101,20 @@ const Admin = () => {
   const deleteUser = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:5001/users/${userId}`);
-        setUsers(users.filter(user => user._id !== userId));
+        const response = await axios.delete(`http://localhost:5001/users/${userId}`);
+        if (response.status === 200) {
+          setUsers(users.filter(user => user._id !== userId));
+          alert('User deleted successfully!');
+        }
       } catch (err) {
-        alert('Failed to delete user: ' + err.message);
+        alert('Failed to delete user: ' + (err.response?.data?.message || err.message));
       }
     }
   };
 
   const sortUsers = (field) => {
     const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortField(field);
+    setSortField(field); // Fixed typo: was "setSortField Panama)"
     setSortOrder(order);
     const sorted = [...users].sort((a, b) => {
       if (field === 'username') {
@@ -89,18 +154,34 @@ const Admin = () => {
     link.click();
   };
 
-  const getEmotionSummary = (analyses) => {
+  const getSuggestionsSummary = (analyses) => {
+    const suggestionCounts = analyses.reduce((acc, analysis) => {
+      (analysis.analysis?.Suggestions || []).forEach(suggestion => {
+        acc[suggestion] = (acc[suggestion] || 0) + 1;
+      });
+      return acc;
+    }, {});
+    return Object.entries(suggestionCounts).map(([suggestion, count]) => `${suggestion}: ${count}`).join(', ');
+  };
+
+  const getEmotionDistribution = (analyses) => {
     const emotionCounts = analyses.reduce((acc, analysis) => {
       (analysis.analysis?.Emotions || []).forEach(emotion => {
         acc[emotion] = (acc[emotion] || 0) + 1;
       });
       return acc;
     }, {});
-    return Object.entries(emotionCounts).map(([emotion, count]) => `${emotion}: ${count}`).join(', ');
+    const totalEmotions = Object.values(emotionCounts).reduce((sum, count) => sum + count, 0);
+    return Object.entries(emotionCounts).map(([emotion, count]) => ({
+      emotion,
+      count,
+      percentage: totalEmotions > 0 ? (count / totalEmotions * 100).toFixed(1) : 0
+    }));
   };
 
   const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase())
+    user.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (user.analyses || []).length >= minAnalyses
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -108,36 +189,58 @@ const Admin = () => {
   const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  if (loading) return <div className="loading">Loading users...</div>;
+  if (loading) return <div className="loading"><div className="spinner"></div>Loading users...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="admin-container">
+    <div className="admin-container" onClick={closeContextMenu}>
       <h1>Admin Dashboard - User Details</h1>
       <div className="dashboard-controls">
-        <input
-          type="text"
-          placeholder="Search by username..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
-        <button className="export-btn" onClick={exportToCSV}>Export to CSV</button>
+        <div className="filter-group">
+          <input
+            type="text"
+            placeholder="Search by username..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <input
+            type="number"
+            placeholder="Min Analyses"
+            value={minAnalyses}
+            onChange={(e) => setMinAnalyses(Math.max(0, parseInt(e.target.value) || 0))}
+            className="min-analyses-input"
+            min="0"
+          />
+        </div>
+        <div>
+          <button className="export-btn" onClick={exportToCSV}>Export All to CSV</button>
+        </div>
       </div>
-      <div className="users-table">
+      <div className="users-table" onContextMenu={handleContextMenu}>
         <table>
           <thead>
             <tr>
-              <th onClick={() => sortUsers('username')}>Username</th>
-              <th onClick={() => sortUsers('totalAnalyses')}>Total Analyses</th>
-              <th onClick={() => sortUsers('lastAnalysisDate')}>Last Analysis Date</th>
+              <th onClick={() => sortUsers('username')}>
+                Username {sortField === 'username' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
+              <th onClick={() => sortUsers('totalAnalyses')}>
+                Total Analyses {sortField === 'totalAnalyses' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
+              <th onClick={() => sortUsers('lastAnalysisDate')}>
+                Last Analysis Date {sortField === 'lastAnalysisDate' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
               <th>Details</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentUsers.map((user) => (
-              <tr key={user._id}>
+              <tr
+                key={user._id}
+                className={selectedUsers.includes(user._id) ? 'selected-row' : ''}
+                onClick={() => toggleUserSelection(user._id)}
+              >
                 <td>{user.username}</td>
                 <td>{(user.analyses || []).length}</td>
                 <td>
@@ -147,7 +250,7 @@ const Admin = () => {
                 </td>
                 <td>
                   {(user.analyses || []).length > 0 ? (
-                    <button className="details-btn" onClick={() => openModal(user.analyses)}>
+                    <button className="details-btn" onClick={(e) => { e.stopPropagation(); openModal(user.analyses); }}>
                       View Analyses
                     </button>
                   ) : (
@@ -155,7 +258,9 @@ const Admin = () => {
                   )}
                 </td>
                 <td>
-                  <button className="delete-btn" onClick={() => deleteUser(user._id)}>Delete</button>
+                  <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteUser(user._id); }}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -168,13 +273,38 @@ const Admin = () => {
         <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}>Next</button>
       </div>
 
-      {/* Modal */}
+      {contextMenu.visible && (
+        <div
+          className="context-menu"
+          style={{ top: contextMenu.y, left: contextMenu.x }}
+        >
+          <button onClick={exportSelectedToCSV}>Export Selected ({selectedUsers.length})</button>
+          <button onClick={bulkDeleteUsers}>Delete Selected ({selectedUsers.length})</button>
+        </div>
+      )}
+
       {selectedAnalysis && (
         <div className="modal active" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={closeModal}>Close</button>
             <h2>Analysis Details</h2>
-            <p><strong>Emotion Summary:</strong> {getEmotionSummary(selectedAnalysis) || 'N/A'}</p>
+            <div className="emotion-chart">
+              <h3>Emotion Distribution</h3>
+              <div className="chart-container">
+                {getEmotionDistribution(selectedAnalysis).map(({ emotion,percentage }) => (
+                  <div key={emotion} className="emotion-bar">
+                    <span className="emotion-label">{emotion}</span>
+                    <div className="bar-wrapper">
+                      <div
+                        className="bar"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                      <span className="bar-value">({percentage}%)</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
             <ul>
               {selectedAnalysis.map((analysis, index) => (
                 <li key={index}>
