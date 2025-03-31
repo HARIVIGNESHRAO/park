@@ -23,15 +23,36 @@ h1 {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.search-input {
+.filter-group {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.search-input, .min-analyses-input {
   padding: 10px;
-  width: 50%;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 2;
+}
+
+.min-analyses-input {
+  width: 120px;
+}
+
+.dashboard-controls > div {
+  display: flex;
+  gap: 10px;
 }
 
 .export-btn {
@@ -71,7 +92,9 @@ table {
 thead {
   background-color: #3498db;
   color: white;
-  border-radius: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 th, td {
@@ -93,24 +116,36 @@ th:hover {
   transition: background 0.3s ease;
 }
 
+tr {
+  cursor: pointer;
+}
+
 tr:hover {
   background-color: #f2f6fc;
   transition: background 0.3s ease;
 }
 
+tr.selected-row {
+  background-color: #d1e7ff;
+}
+
 /* Button Styling */
-.details-btn {
-  display: inline-flex;
-  align-items: center;
+.details-btn, .delete-btn {
   background: #3498db;
   color: white;
   font-weight: 600;
   border: none;
   border-radius: 6px;
-  padding: 8px 12px; /* Reduced padding to align better */
+  padding: 8px 12px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3); /* Smaller shadow */
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+}
+
+.delete-btn {
+  background: #e74c3c;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+  margin-left: 8px;
 }
 
 .details-btn:hover {
@@ -118,29 +153,36 @@ tr:hover {
   transform: translateY(-2px);
 }
 
-.delete-btn {
-  display: inline-flex;
-  align-items: center;
-  background: #e74c3c;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px; /* Match details-btn padding */
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3); /* Smaller shadow */
-  margin-left: 8px; /* Space between buttons */
-}
-
 .delete-btn:hover {
   background: #c0392b;
   transform: translateY(-2px);
 }
 
-td .button-group {
-  display: flex;
-  align-items: center;
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  padding: 5px 0;
+}
+
+.context-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.context-menu button:hover {
+  background: #f2f6fc;
 }
 
 /* Pagination */
@@ -172,7 +214,7 @@ td .button-group {
   color: #2c3e50;
 }
 
-/* MODAL STYLING */
+/* Modal Styling */
 .modal {
   display: none;
   position: fixed;
@@ -204,7 +246,6 @@ td .button-group {
   overflow-y: auto;
 }
 
-/* Close Button */
 .modal-close {
   position: absolute;
   top: 10px;
@@ -218,7 +259,6 @@ td .button-group {
   font-weight: 600;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
-  z-index: 1100;
 }
 
 .modal-close:hover {
@@ -226,40 +266,84 @@ td .button-group {
   transform: translateY(-2px);
 }
 
-/* Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* Enhanced Emotion Distribution */
+.emotion-chart {
+  margin: 20px 0;
 }
 
-/* Loading and Error Styling */
+.emotion-chart h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+.emotion-bar {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.emotion-label {
+  width: 100px;
+  font-weight: 500;
+  color: #2c3e50;
+  text-transform: capitalize;
+}
+
+.bar-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.bar {
+  height: 20px;
+  background: linear-gradient(to right, #3498db, #1f78c1);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.bar-value {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+/* Loading Animation */
 .loading {
   text-align: center;
   padding: 20px;
   color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.loading::after {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid #3498db;
-  border-top: 3px solid transparent;
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #3498db;
+  border-top: 4px solid transparent;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-left: 10px;
+  animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .error {
@@ -281,6 +365,19 @@ td .button-group {
     font-size: 24px;
   }
 
+  .dashboard-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    flex-direction: column;
+  }
+
+  .search-input, .min-analyses-input {
+    width: 100%;
+  }
+
   th, td {
     padding: 10px;
     font-size: 14px;
@@ -292,20 +389,15 @@ td .button-group {
   }
 
   .modal-content {
-    width: 80%;
+    width: 90%;
     max-height: 70vh;
   }
 
-  .dashboard-controls {
-    flex-direction: column;
-    gap: 10px;
+  .emotion-label {
+    width: 80px;
   }
 
-  .search-input {
-    width: 100%;
-  }
-
-  .delete-btn {
-    margin-left: 4px; /* Reduced spacing for smaller screens */
+  .bar-value {
+    font-size: 12px;
   }
 }
