@@ -129,6 +129,22 @@ tr.selected-row {
   background-color: #d1e7ff;
 }
 
+.critical-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.critical-indicator.red {
+  background-color: #e74c3c;
+}
+
+.critical-indicator.yellow {
+  background-color: #f1c40f;
+}
+
 /* Button Styling */
 .details-btn, .delete-btn {
   background: #3498db;
@@ -285,6 +301,10 @@ tr.selected-row {
   display: flex;
   align-items: center;
   margin: 8px 0;
+}
+
+.emotion-bar.critical .bar {
+  background: linear-gradient(to right, #e74c3c, #c0392b);
 }
 
 .emotion-label {
