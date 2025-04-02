@@ -16,6 +16,9 @@ const Admin = () => {
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
   const itemsPerPage = 10;
 
+  // Emotions indicating depression or suicidal tendencies
+  const criticalEmotions = ['Sadness', 'Hopelessness', 'Despair'];
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -114,7 +117,7 @@ const Admin = () => {
 
   const sortUsers = (field) => {
     const order = sortField === field && sortOrder === 'asc' ? 'desc' : 'asc';
-    setSortField(field); // Fixed typo: was "setSortField Panama)"
+    setSortField(field);
     setSortOrder(order);
     const sorted = [...users].sort((a, b) => {
       if (field === 'username') {
@@ -175,8 +178,21 @@ const Admin = () => {
     return Object.entries(emotionCounts).map(([emotion, count]) => ({
       emotion,
       count,
-      percentage: totalEmotions > 0 ? (count / totalEmotions * 100).toFixed(1) : 0
+      percentage: totalEmotions > 0 ? (count / totalEmotions * 100).toFixed(1) : 0,
+      isCritical: criticalEmotions.includes(emotion)
     }));
+  };
+
+  const getCriticalEmotionCount = (analyses) => {
+    const uniqueCriticalEmotions = new Set();
+    analyses.forEach(analysis => {
+      (analysis.analysis?.Emotions || []).forEach(emotion => {
+        if (criticalEmotions.includes(emotion)) {
+          uniqueCriticalEmotions.add(emotion);
+        }
+      });
+    });
+    return uniqueCriticalEmotions.size;
   };
 
   const filteredUsers = users.filter(user =>
@@ -235,35 +251,43 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-            {currentUsers.map((user) => (
-              <tr
-                key={user._id}
-                className={selectedUsers.includes(user._id) ? 'selected-row' : ''}
-                onClick={() => toggleUserSelection(user._id)}
-              >
-                <td>{user.username}</td>
-                <td>{(user.analyses || []).length}</td>
-                <td>
-                  {(user.analyses || []).length > 0
-                    ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
-                    : 'No analyses yet'}
-                </td>
-                <td>
-                  {(user.analyses || []).length > 0 ? (
-                    <button className="details-btn" onClick={(e) => { e.stopPropagation(); openModal(user.analyses); }}>
-                      View Analyses
+            {currentUsers.map((user) => {
+              const criticalCount = getCriticalEmotionCount(user.analyses || []);
+              return (
+                <tr
+                  key={user._id}
+                  className={selectedUsers.includes(user._id) ? 'selected-row' : ''}
+                  onClick={() => toggleUserSelection(user._id)}
+                >
+                  <td>
+                    {criticalCount > 0 && (
+                      <span className={`critical-indicator ${criticalCount > 1 ? 'red' : 'yellow'}`}></span>
+                    )}
+                    {user.username}
+                  </td>
+                  <td>{(user.analyses || []).length}</td>
+                  <td>
+                    {(user.analyses || []).length > 0
+                      ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
+                      : 'No analyses yet'}
+                  </td>
+                  <td>
+                    {(user.analyses || []).length > 0 ? (
+                      <button className="details-btn" onClick={(e) => { e.stopPropagation(); openModal(user.analyses); }}>
+                        View Analyses
+                      </button>
+                    ) : (
+                      <p>No analyses available</p>
+                    )}
+                  </td>
+                  <td>
+                    <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteUser(user._id); }}>
+                      Delete
                     </button>
-                  ) : (
-                    <p>No analyses available</p>
-                  )}
-                </td>
-                <td>
-                  <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteUser(user._id); }}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -291,8 +315,8 @@ const Admin = () => {
             <div className="emotion-chart">
               <h3>Emotion Distribution</h3>
               <div className="chart-container">
-                {getEmotionDistribution(selectedAnalysis).map(({ emotion,percentage }) => (
-                  <div key={emotion} className="emotion-bar">
+                {getEmotionDistribution(selectedAnalysis).map(({ emotion, percentage, isCritical }) => (
+                  <div key={emotion} className={`emotion-bar ${isCritical ? 'critical' : ''}`}>
                     <span className="emotion-label">{emotion}</span>
                     <div className="bar-wrapper">
                       <div
@@ -330,3 +354,5 @@ const Admin = () => {
 };
 
 export default Admin;
+
+//experimental function highlighting emotions which might indicate depression and sucidial tedencies(still in works)
