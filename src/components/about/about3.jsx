@@ -24,7 +24,7 @@ const TeamSection = () => {
     {
       id:4,
       name:'raghu',
-      title:'Model Developer',
+      title:'DL ops Engineer',
       bio:'Student at Kmit'
     }
   ];
