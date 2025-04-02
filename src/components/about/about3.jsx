@@ -20,6 +20,12 @@ const TeamSection = () => {
       name: 'Kowshik',
       title: 'Backend Developer',
       bio: 'Student at Kmit'
+    },
+    {
+      id:4,
+      name:'raghu',
+      title:'Model Developer',
+      bio:'Student at Kmit'
     }
   ];
 
