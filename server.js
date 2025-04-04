@@ -15,7 +15,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: true,
+  origin: "http://localhost:3000",
   credentials: true
 }));
 app.use(cookieParser());
@@ -28,11 +28,11 @@ mongoose.connect(
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// User Schema (unchanged, email already included)
+// User Schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String }, // Optional for social logins
-  email: { type: String, required: true, unique: true }, // Ensure email is required
+  password: { type: String },
+  email: { type: String, required: true, unique: true },
   googleId: { type: String, unique: true, sparse: true },
   githubId: { type: String, unique: true, sparse: true },
   analyses: [{
@@ -42,13 +42,14 @@ const userSchema = new mongoose.Schema({
       Reasons: String,
       Suggestions: [String],
     },
+    tags: [String], // Added tags field
     createdAt: { type: Date, default: Date.now }
   }]
 });
 
 const User = mongoose.model("User", userSchema);
 
-// File upload configuration (unchanged)
+// File upload configuration
 const uploadDir = 'uploads';
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
@@ -70,16 +71,17 @@ const upload = multer({
   }
 });
 
-// Mock analysis function (unchanged)
+// Mock analysis function with tags
 const analyzeTranscription = (transcription) => {
   return {
     Emotions: ['happy', 'calm'],
     Reasons: 'The tone suggests positive feelings',
-    Suggestions: ['Continue positive activities', 'Maintain routine']
+    Suggestions: ['Continue positive activities', 'Maintain routine'],
+    tags: ['Positive', 'Daily'] // Example tags
   };
 };
 
-// Register Route (unchanged, already includes email)
+// Register Route
 app.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
 
@@ -109,7 +111,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// Login Route (updated to return email)
+// Login Route
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -123,19 +125,20 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
+    res.cookie('username', username, { httpOnly: true, path: '/' });
     res.status(200).json({ message: "Login successful", username: user.username, email: user.email });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
-// Logout Route (unchanged)
+// Logout Route
 app.post("/logout", (req, res) => {
   res.clearCookie('username', { path: '/' });
   res.status(200).json({ message: "Logout successful" });
 });
 
-// Google Login Endpoint (updated to save and return email)
+// Google Login Endpoint
 const googleClient = new OAuth2Client("423273358250-erqvredg1avk5pr09ugj8uve1rg11m3m.apps.googleusercontent.com");
 app.post('/google-login', async (req, res) => {
   try {
@@ -158,13 +161,14 @@ app.post('/google-login', async (req, res) => {
 
       user = new User({
         username,
-        email, // Save email from Google
+        email,
         googleId,
         analyses: []
       });
       await user.save();
     }
 
+    res.cookie('username', user.username, { httpOnly: true, path: '/' });
     res.status(200).json({ message: "Google login successful", username: user.username, email: user.email });
   } catch (error) {
     console.error("Google login error:", error);
@@ -172,7 +176,7 @@ app.post('/google-login', async (req, res) => {
   }
 });
 
-// GitHub Login Endpoint (updated to save and return email)
+// GitHub Login Endpoint
 app.post('/github-login', async (req, res) => {
   try {
     const { code } = req.body;
@@ -203,13 +207,14 @@ app.post('/github-login', async (req, res) => {
 
       user = new User({
         username,
-        email: githubEmail || `${username}@github.com`, // Fallback if email is null
+        email: githubEmail || `${username}@github.com`,
         githubId,
         analyses: []
       });
       await user.save();
     }
 
+    res.cookie('username', user.username, { httpOnly: true, path: '/' });
     res.status(200).json({ message: "GitHub login successful", username: user.username, email: user.email });
   } catch (error) {
     console.error("GitHub login error:", error);
@@ -217,7 +222,7 @@ app.post('/github-login', async (req, res) => {
   }
 });
 
-// Analyze Audio Route (updated to include email in response)
+// Analyze Audio Route
 app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   const { username } = req.body;
 
@@ -238,7 +243,7 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
     const transcription = "Sample transcription from audio";
     const analysis = analyzeTranscription(transcription);
 
-    user.analyses.push({ transcription, analysis });
+    user.analyses.push({ transcription, analysis, tags: analysis.tags });
     await user.save();
 
     fs.unlinkSync(req.file.path);
@@ -252,7 +257,7 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   }
 });
 
-// Generate PDF Route (unchanged, email not needed in PDF)
+// Generate PDF Route (Single Analysis)
 app.post("/generate_pdf", async (req, res) => {
   const { transcription, analysis, username } = req.body;
 
@@ -303,9 +308,9 @@ app.post("/generate_pdf", async (req, res) => {
   }
 });
 
-// Save Analysis Route (updated to include email in response)
+// Save Analysis Route with Tags
 app.post("/save_analysis", async (req, res) => {
-  const { username, transcription, analysis } = req.body;
+  const { username, transcription, analysis, tags } = req.body;
 
   if (!username || !transcription || !analysis) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -317,10 +322,10 @@ app.post("/save_analysis", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.analyses.push({ transcription, analysis });
+    user.analyses.push({ transcription, analysis, tags: tags || [] });
     await user.save();
 
-    console.log(`Analysis saved for ${username}:`, { transcription, analysis });
+    console.log(`Analysis saved for ${username}:`, { transcription, analysis, tags });
 
     res.json({ message: "Analysis saved successfully", username, email: user.email });
   } catch (error) {
@@ -329,7 +334,70 @@ app.post("/save_analysis", async (req, res) => {
   }
 });
 
-// Get All Users Route (unchanged, email already included with -password)
+// Export All Analyses Route
+app.post("/users/:username/export-analyses", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const doc = new PDFDocument();
+    const filename = `all_analyses_${username}_${Date.now()}.pdf`;
+    doc.pipe(fs.createWriteStream(filename));
+
+    doc.fontSize(22).text(`All Mental Health Analyses for ${username}`, { align: 'center' });
+    doc.fontSize(10).text(`Generated on: ${new Date().toLocaleString()}`, { align: 'left' });
+    doc.moveDown();
+
+    user.analyses.forEach((analysis, index) => {
+      doc.fontSize(16).text(`Analysis ${index + 1}`, { underline: true });
+      doc.moveDown(0.5);
+
+      doc.fontSize(14).text('Transcription:');
+      doc.fontSize(10).text(analysis.transcription || 'Not provided', { align: 'left' });
+      doc.moveDown();
+
+      doc.fontSize(14).text('Emotions Identified:');
+      (analysis.analysis.Emotions || []).forEach(emotion => doc.text(`• ${emotion}`));
+      doc.moveDown();
+
+      doc.fontSize(14).text('Possible Reasons:');
+      doc.fontSize(10).text(analysis.analysis.Reasons || 'Not provided', { align: 'justify' });
+      doc.moveDown();
+
+      doc.fontSize(14).text('Suggestions:');
+      (analysis.analysis.Suggestions || []).forEach(suggestion => doc.text(`✔ ${suggestion}`));
+      doc.moveDown();
+
+      if (analysis.tags && analysis.tags.length > 0) {
+        doc.fontSize(14).text('Tags:');
+        doc.fontSize(10).text(analysis.tags.join(', '));
+        doc.moveDown();
+      }
+
+      if (index < user.analyses.length - 1) doc.addPage();
+    });
+
+    doc.end();
+
+    res.download(filename, `All_Analyses_${username}.pdf`, (err) => {
+      if (!err) {
+        fs.unlinkSync(filename);
+      } else {
+        console.error('Export error:', err);
+        res.status(500).json({ error: "Failed to export analyses" });
+      }
+    });
+  } catch (error) {
+    console.error("Export error:", error.message);
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+// Get All Users Route
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find()
@@ -351,7 +419,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// Get User by Username Route (updated to ensure email is included)
+// Get User by Username Route
 app.get("/users/username", async (req, res) => {
   try {
     const username = req.cookies.username;
@@ -387,12 +455,14 @@ app.get("/users/username", async (req, res) => {
     });
   }
 });
+
+// Delete User Route
 app.delete("/users/:id", async (req, res) => {
   const userId = req.params.id;
-  console.log('Attempting to delete user with ID:', userId); // Log the ID
+  console.log('Attempting to delete user with ID:', userId);
   try {
     const user = await User.findById(userId);
-    console.log('Found user:', user); // Log the user (or null)
+    console.log('Found user:', user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -401,6 +471,40 @@ app.delete("/users/:id", async (req, res) => {
   } catch (error) {
     console.error("Error deleting user:", error.message);
     res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+// Delete Analysis Route (Single)
+app.delete("/users/:username/analyses/:analysisId", async (req, res) => {
+  const { username, analysisId } = req.params;
+  console.log('DELETE request received (RAW VERSION):', { username, analysisId });
+  try {
+    const db = mongoose.connection.db;
+    const collection = db.collection('users');
+
+    console.log('Attempting raw update...');
+    const result = await collection.updateOne(
+      { username },
+      { $pull: { analyses: { _id: new mongoose.Types.ObjectId(analysisId) } } }
+    );
+    console.log('Raw update result:', result);
+
+    if (result.modifiedCount === 0) {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+      const analysisExists = user.analyses.some(a => a._id.toString() === analysisId);
+      if (!analysisExists) {
+        return res.status(404).json({ success: false, message: "Analysis not found" });
+      }
+      return res.status(500).json({ success: false, message: "Failed to delete analysis" });
+    }
+
+    res.status(200).json({ success: true, message: "Analysis deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting analysis:", error.message);
+    res.status(500).json({ success: false, message: "Server error: " + error.message });
   }
 });
 
