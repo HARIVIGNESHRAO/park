@@ -68,7 +68,7 @@ const Login = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/register', {
+      const response = await axios.post('https://salaar1-production.up.railway.app/register', {
         username,
         password,
         email
@@ -88,7 +88,7 @@ const Login = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/login', {
+      const response = await axios.post('https://salaar1-production.up.railway.app/login', {
         username,
         password
       }, { withCredentials: true });
