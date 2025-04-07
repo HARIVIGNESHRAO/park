@@ -34,7 +34,8 @@ h1 {
   flex: 1;
 }
 
-.search-input, .min-analyses-input {
+.search-input,
+.min-analyses-input {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -97,7 +98,8 @@ thead {
   z-index: 1;
 }
 
-th, td {
+th,
+td {
   padding: 14px 18px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -146,7 +148,8 @@ tr.selected-row {
 }
 
 /* Button Styling */
-.details-btn, .delete-btn {
+.details-btn,
+.delete-btn {
   background: #3498db;
   color: white;
   font-weight: 600;
@@ -234,7 +237,7 @@ tr.selected-row {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 2000;
   left: 0;
   top: 0;
   width: 100%;
@@ -242,6 +245,7 @@ tr.selected-row {
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
+  overflow: auto; /* Ensure scrolling if content overflows */
 }
 
 .modal.active {
@@ -250,16 +254,22 @@ tr.selected-row {
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 40px 30px 30px 30px;
   width: 50%;
   max-width: 600px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: left;
   position: relative;
-  animation: fadeIn 0.3s ease-in-out;
-  max-height: 80vh;
+  max-height: 85vh;
   overflow-y: auto;
+  opacity: 1; /* Remove animation for stability */
+}
+
+.modal-content.large-modal {
+  width: 70%;
+  max-width: 800px;
+  max-height: 90vh;
 }
 
 .modal-close {
@@ -275,6 +285,7 @@ tr.selected-row {
   font-weight: 600;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+  z-index: 2100; /* Above modal content */
 }
 
 .modal-close:hover {
@@ -335,6 +346,43 @@ tr.selected-row {
   white-space: nowrap;
 }
 
+/* Profile Modal Styling */
+.profile-details {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.avatar-section {
+  flex-shrink: 0;
+}
+
+.avatar-full {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3498db;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: block; /* Ensure proper rendering */
+}
+
+.details-list {
+  flex: 1;
+}
+
+.detail-item {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.detail-item strong {
+  color: #3498db;
+  margin-right: 10px;
+}
+
 /* Loading Animation */
 .loading {
   text-align: center;
@@ -356,15 +404,15 @@ tr.selected-row {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Fade-in Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
+/* Removed fadeIn animation for stability */
 
 .error {
   text-align: center;
@@ -394,23 +442,48 @@ tr.selected-row {
     flex-direction: column;
   }
 
-  .search-input, .min-analyses-input {
+  .search-input,
+  .min-analyses-input {
     width: 100%;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     font-size: 14px;
   }
 
-  .details-btn, .delete-btn, .export-btn {
+  .details-btn,
+  .delete-btn,
+  .export-btn {
     padding: 8px 12px;
     font-size: 14px;
   }
 
   .modal-content {
     width: 90%;
-    max-height: 70vh;
+    padding: 30px 20px 20px 20px;
+  }
+
+  .modal-content.large-modal {
+    width: 95%;
+    max-width: none;
+  }
+
+  .profile-details {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .avatar-full {
+    width: 150px;
+    height: 150px;
+  }
+
+  .detail-item {
+    font-size: 16px;
   }
 
   .emotion-label {
