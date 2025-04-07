@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { History, LogOut, ChevronLeft, ChevronRight, Bell } from 'lucide-react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -6,12 +6,20 @@ import axios from 'axios';
 import './dashboard.css';
 import Home from "../home/home";
 import User from "../user/user";
+import ProfilePage from "../Profile/ProfilePage";
 
 const Dashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [username] = useState(Cookies.get('username') || 'Guest');
   const [activeView, setActiveView] = useState('home'); // Default to 'home'
+  const [avatar, setAvatar] = useState(null); // State for avatar
   const navigate = useNavigate();
+
+  // Fetch avatar from localStorage on mount
+  useEffect(() => {
+    const storedAvatar = localStorage.getItem('userAvatar');
+    setAvatar(storedAvatar);
+  }, []);
 
   const toggleSidebar = () => setSidebarCollapsed(!sidebarCollapsed);
 
@@ -19,9 +27,11 @@ const Dashboard = () => {
     try {
       await axios.post('https://salaar1-production.up.railway.app/logout', {}, { withCredentials: true });
       Cookies.remove('username');
+      localStorage.removeItem('userAvatar'); // Optional: Clear avatar on logout
       navigate('/login');
     } catch (error) {
       Cookies.remove('username');
+      localStorage.removeItem('userAvatar'); // Optional: Clear avatar on logout
       navigate('/login');
     }
   };
@@ -41,12 +51,16 @@ const Dashboard = () => {
         </button>
         <div className="profile-section">
           <div className="profile-image">
-            <div className="profile-initial">{profileInitial}</div>
+            {avatar ? (
+              <img src={avatar} alt="User Avatar" className="avatar-image" />
+            ) : (
+              <div className="profile-initial">{profileInitial}</div>
+            )}
           </div>
           {!sidebarCollapsed && (
             <div className="profile-info">
               <h3>{username}</h3>
-              <p>Administrator</p>
+              <p>User</p>
             </div>
           )}
         </div>
@@ -57,8 +71,7 @@ const Dashboard = () => {
                 onClick={() => handleNavClick('home')}
                 className={`nav-item ${activeView === 'home' ? 'active' : ''}`}
               >
-                <History/>
-                {/* Always show text since sidebar collapse handles visibility */}
+                <History size={20} />
                 {!sidebarCollapsed && <span>Dashboard</span>}
               </a>
             </li>
@@ -73,7 +86,7 @@ const Dashboard = () => {
             </li>
             <li>
               <a
-                onClick={() => handleNavClick('notifications')} // Placeholder for future expansion
+                onClick={() => handleNavClick('notifications')}
                 className={`nav-item ${activeView === 'notifications' ? 'active' : ''}`}
               >
                 <Bell size={20} />
@@ -82,10 +95,10 @@ const Dashboard = () => {
             </li>
             <li>
               <a
-                onClick={() => handleNavClick('profile')} // Placeholder for future expansion
+                onClick={() => handleNavClick('profile')}
                 className={`nav-item ${activeView === 'profile' ? 'active' : ''}`}
               >
-                <History size={20} /> {/* Assuming this was a typo; replace with appropriate icon if needed */}
+                <History size={20} /> {/* Consider replacing with a profile icon */}
                 {!sidebarCollapsed && <span>Profile</span>}
               </a>
             </li>
@@ -102,7 +115,7 @@ const Dashboard = () => {
         {activeView === 'home' && <Home />}
         {activeView === 'user' && <User />}
         {activeView === 'notifications' && <p>Notifications (Coming Soon)</p>}
-        {activeView === 'profile' && <p>Profile (Coming Soon)</p>}
+        {activeView === 'profile' && <ProfilePage />}
       </div>
     </div>
   );
