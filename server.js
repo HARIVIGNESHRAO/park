@@ -28,14 +28,15 @@ mongoose.connect(
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Updated User Schema with avatar field
+// Updated User Schema with age field
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String },
   email: { type: String, required: true, unique: true },
   googleId: { type: String, unique: true, sparse: true },
   githubId: { type: String, unique: true, sparse: true },
-  avatar: { type: String }, // Added avatar field to store base64 string or URL
+  avatar: { type: String },
+  age: { type: Number, min: 1, max: 120 }, // Added age field with validation
   analyses: [{
     transcription: String,
     analysis: {
@@ -100,9 +101,9 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-// Register Route - Updated to include optional avatar
+// Register Route - Updated to include age
 app.post("/register", async (req, res) => {
-  const { username, password, email, avatar } = req.body;
+  const { username, password, email, avatar, age } = req.body;
 
   if (!username || !password || !email) {
     return res.status(400).json({ error: "Username, password, and email are required" });
@@ -111,6 +112,10 @@ app.post("/register", async (req, res) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: "Invalid email format" });
+  }
+
+  if (age && (isNaN(age) || age < 1 || age > 120)) {
+    return res.status(400).json({ error: "Age must be a number between 1 and 120" });
   }
 
   try {
@@ -125,18 +130,19 @@ app.post("/register", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      avatar, // Include avatar if provided
+      avatar,
+      age, // Include age if provided
       analyses: []
     });
     await user.save();
 
-    res.status(201).json({ message: "Registration successful", username, email, avatar });
+    res.status(201).json({ message: "Registration successful", username, email, avatar, age });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
-// Login Route - Updated to return avatar
+// Login Route - Updated to return age
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -155,7 +161,8 @@ app.post("/login", async (req, res) => {
       message: "Login successful",
       username: user.username,
       email: user.email,
-      avatar: user.avatar
+      avatar: user.avatar,
+      age: user.age // Include age
     });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
@@ -168,7 +175,7 @@ app.post("/logout", (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 });
 
-// Google Login Endpoint - Updated to return avatar
+// Google Login Endpoint - Updated to return age
 const googleClient = new OAuth2Client("423273358250-erqvredg1avk5pr09ugj8uve1rg11m3m.apps.googleusercontent.com");
 app.post('/google-login', async (req, res) => {
   try {
@@ -193,7 +200,8 @@ app.post('/google-login', async (req, res) => {
         username,
         email,
         googleId,
-        analyses: []
+        analyses: [],
+        age: null // Set age to null initially, can be updated later
       });
       await user.save();
     }
@@ -203,7 +211,8 @@ app.post('/google-login', async (req, res) => {
       message: "Google login successful",
       username: user.username,
       email: user.email,
-      avatar: user.avatar
+      avatar: user.avatar,
+      age: user.age // Include age
     });
   } catch (error) {
     console.error("Google login error:", error);
@@ -211,7 +220,7 @@ app.post('/google-login', async (req, res) => {
   }
 });
 
-// GitHub Login Endpoint - Updated to return avatar
+// GitHub Login Endpoint - Updated to return age
 app.post('/github-login', async (req, res) => {
   try {
     const { code } = req.body;
@@ -244,7 +253,8 @@ app.post('/github-login', async (req, res) => {
         username,
         email: githubEmail || `${username}@github.com`,
         githubId,
-        analyses: []
+        analyses: [],
+        age: null // Set age to null initially, can be updated later
       });
       await user.save();
     }
@@ -254,7 +264,8 @@ app.post('/github-login', async (req, res) => {
       message: "GitHub login successful",
       username: user.username,
       email: user.email,
-      avatar: user.avatar
+      avatar: user.avatar,
+      age: user.age // Include age
     });
   } catch (error) {
     console.error("GitHub login error:", error);
@@ -262,7 +273,7 @@ app.post('/github-login', async (req, res) => {
   }
 });
 
-// Analyze Audio Route - No change needed for avatar
+// Analyze Audio Route
 app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   const { username } = req.body;
 
@@ -297,7 +308,7 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   }
 });
 
-// Generate PDF Route - No change needed for avatar
+// Generate PDF Route
 app.post("/generate_pdf", async (req, res) => {
   const { transcription, analysis, username } = req.body;
 
@@ -348,7 +359,7 @@ app.post("/generate_pdf", async (req, res) => {
   }
 });
 
-// Save Analysis Route - No change needed for avatar
+// Save Analysis Route
 app.post("/save_analysis", async (req, res) => {
   const { username, transcription, analysis } = req.body;
 
@@ -373,6 +384,8 @@ app.post("/save_analysis", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+// Export All Analyses Route
 app.post("/users/:username/export-analyses", async (req, res) => {
   const { username } = req.params;
 
@@ -410,12 +423,6 @@ app.post("/users/:username/export-analyses", async (req, res) => {
       (analysis.analysis.Suggestions || []).forEach(suggestion => doc.text(`✔ ${suggestion}`));
       doc.moveDown();
 
-      if (analysis.tags && analysis.tags.length > 0) {
-        doc.fontSize(14).text('Tags:');
-        doc.fontSize(10).text(analysis.tags.join(', '));
-        doc.moveDown();
-      }
-
       if (index < user.analyses.length - 1) doc.addPage();
     });
 
@@ -434,19 +441,18 @@ app.post("/users/:username/export-analyses", async (req, res) => {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
+
+// Delete Analysis Route
 app.delete("/users/:username/analyses/:analysisId", async (req, res) => {
   const { username, analysisId } = req.params;
-  console.log('DELETE request received (RAW VERSION):', { username, analysisId });
   try {
     const db = mongoose.connection.db;
     const collection = db.collection('users');
 
-    console.log('Attempting raw update...');
     const result = await collection.updateOne(
       { username },
       { $pull: { analyses: { _id: new mongoose.Types.ObjectId(analysisId) } } }
     );
-    console.log('Raw update result:', result);
 
     if (result.modifiedCount === 0) {
       const user = await User.findOne({ username });
@@ -466,7 +472,8 @@ app.delete("/users/:username/analyses/:analysisId", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error: " + error.message });
   }
 });
-// Get All Users Route - Updated to include avatar
+
+// Get All Users Route - Updated to include age
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find()
@@ -482,7 +489,8 @@ app.get("/users", async (req, res) => {
       count: users.length,
       users: users.map(user => ({
         ...user,
-        avatar: user.avatar // Ensure avatar is included
+        avatar: user.avatar,
+        age: user.age // Include age
       }))
     });
   } catch (error) {
@@ -491,7 +499,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// Get User by Username Route - Updated to include avatar
+// Get User by Username Route - Updated to include age
 app.get("/users/username", async (req, res) => {
   try {
     const username = req.cookies.username;
@@ -519,7 +527,8 @@ app.get("/users/username", async (req, res) => {
       data: {
         username: user.username,
         email: user.email,
-        avatar: user.avatar, // Include avatar
+        avatar: user.avatar,
+        age: user.age, // Include age
         analyses: user.analyses
       }
     });
@@ -533,13 +542,11 @@ app.get("/users/username", async (req, res) => {
   }
 });
 
-// Delete User Route - No change needed for avatar
+// Delete User Route
 app.delete("/users/:id", async (req, res) => {
   const userId = req.params.id;
-  console.log('Attempting to delete user with ID:', userId);
   try {
     const user = await User.findById(userId);
-    console.log('Found user:', user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -552,11 +559,11 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 // Profile Routes
-// Get User Profile - Updated to include avatar
+// Get User Profile - Updated to include age
 app.get("/api/user/profile", authMiddleware, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.user.username })
-      .select('username email name avatar -_id'); // Include avatar
+      .select('username email name avatar age -_id'); // Include age
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -566,7 +573,8 @@ app.get("/api/user/profile", authMiddleware, async (req, res) => {
       username: user.username,
       email: user.email,
       name: user.name || user.username,
-      avatar: user.avatar // Include avatar in response
+      avatar: user.avatar,
+      age: user.age // Include age
     });
   } catch (error) {
     console.error("Error fetching profile:", error);
@@ -574,9 +582,9 @@ app.get("/api/user/profile", authMiddleware, async (req, res) => {
   }
 });
 
-// Update User Profile - Updated to handle avatar
+// Update User Profile - Updated to handle age with corrected syntax
 app.put("/api/user/profile", authMiddleware, async (req, res) => {
-  const { name, email, avatar } = req.body;
+  const { name, email, avatar, age } = req.body;
 
   if (!name || !email) {
     return res.status(400).json({ error: "Name and email are required" });
@@ -587,20 +595,24 @@ app.put("/api/user/profile", authMiddleware, async (req, res) => {
     return res.status(400).json({ error: "Invalid email format" });
   }
 
+  if (age && (isNaN(age) || age < 1 || age > 120)) {
+    return res.status(400).json({ error: "Age must be a number between 1 and 120" });
+  }
+
   try {
     const emailInUse = await User.findOne({
       email,
       username: { $ne: req.user.username }
     });
     if (emailInUse) {
-      return res.status(400).json({ error: "Email already in use" });
+      return res.status(400).json({ error: "Email already in use" }); // Corrected syntax
     }
 
     const updatedUser = await User.findOneAndUpdate(
       { username: req.user.username },
-      { name, email, avatar }, // Include avatar in update
+      { name, email, avatar, age }, // Include age
       { new: true, runValidators: true }
-    ).select('username email name avatar -_id');
+    ).select('username email name avatar age -_id');
 
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
@@ -611,7 +623,8 @@ app.put("/api/user/profile", authMiddleware, async (req, res) => {
       username: updatedUser.username,
       email: updatedUser.email,
       name: updatedUser.name,
-      avatar: updatedUser.avatar // Return updated avatar
+      avatar: updatedUser.avatar,
+      age: updatedUser.age // Include age
     });
   } catch (error) {
     console.error("Error updating profile:", error);
