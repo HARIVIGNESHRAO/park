@@ -7,16 +7,16 @@ const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedAnalysis, setSelectedAnalysis] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [minAnalyses, setMinAnalyses] = useState(0);
-  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, userId: null });
   const itemsPerPage = 10;
 
-  // Emotions indicating depression or suicidal tendencies
   const criticalEmotions = ['Sadness', 'Hopelessness', 'Despair'];
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Admin = () => {
 
   const toggleUserSelection = (userId) => {
     setSelectedUsers((prev) =>
-      prev.includes(userId) ? prev.filter(id => id !== userId) : [...prev, userId]
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
   };
 
@@ -44,30 +44,31 @@ const Admin = () => {
     if (window.confirm(`Are you sure you want to delete ${selectedUsers.length} user(s)?`)) {
       try {
         await Promise.all(
-          selectedUsers.map(userId =>
-            axios.delete(`http://localhost:5001/users/${userId}`)
-          )
+          selectedUsers.map((userId) => axios.delete(`http://localhost:5001/users/${userId}`))
         );
-        setUsers(users.filter(user => !selectedUsers.includes(user._id)));
+        setUsers(users.filter((user) => !selectedUsers.includes(user._id)));
         setSelectedUsers([]);
+        setSelectedUser(null);
         alert('Selected users deleted successfully!');
       } catch (err) {
         alert('Failed to delete users: ' + (err.response?.data?.message || err.message));
       }
     }
-    setContextMenu({ visible: false, x: 0, y: 0 });
+    setContextMenu({ visible: false, x: 0, y: 0, userId: null });
   };
 
   const exportSelectedToCSV = () => {
     if (selectedUsers.length === 0) return;
-    const selectedData = users.filter(user => selectedUsers.includes(user._id));
-    const headers = ['Username,Total Analyses,Last Analysis Date'];
-    const rows = selectedData.map(user => [
+    const selectedData = users.filter((user) => selectedUsers.includes(user._id));
+    const headers = ['Username,Email,Age,Total Analyses,Last Analysis Date'];
+    const rows = selectedData.map((user) => [
       user.username,
+      user.email,
+      user.age ?? 'Not specified',
       (user.analyses || []).length,
       (user.analyses || []).length > 0
         ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
-        : 'No analyses yet'
+        : 'No analyses yet',
     ].join(','));
     const csv = [headers, ...rows].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -75,22 +76,33 @@ const Admin = () => {
     link.href = URL.createObjectURL(blob);
     link.download = 'selected_users_data.csv';
     link.click();
-    setContextMenu({ visible: false, x: 0, y: 0 });
+    setContextMenu({ visible: false, x: 0, y: 0, userId: null });
   };
 
-  const handleContextMenu = (e) => {
+  const handleContextMenu = (e, userId) => {
     e.preventDefault();
-    if (selectedUsers.length > 0) {
-      setContextMenu({
-        visible: true,
-        x: e.pageX,
-        y: e.pageY
-      });
-    }
+    setContextMenu({
+      visible: true,
+      x: e.pageX,
+      y: e.pageY,
+      userId,
+    });
   };
 
   const closeContextMenu = () => {
-    setContextMenu({ visible: false, x: 0, y: 0 });
+    setContextMenu({ visible: false, x: 0, y: 0, userId: null });
+  };
+
+  const viewUserDetails = (userId) => {
+    const user = users.find((u) => u._id === userId);
+    console.log('Opening user details for:', user); // Debug log
+    setSelectedUser(user);
+    setContextMenu({ visible: false, x: 0, y: 0, userId: null });
+  };
+
+  const closeUserDetails = () => {
+    console.log('Closing user details'); // Debug log
+    setSelectedUser(null);
   };
 
   const openModal = (analysis) => {
@@ -106,7 +118,8 @@ const Admin = () => {
       try {
         const response = await axios.delete(`http://localhost:5001/users/${userId}`);
         if (response.status === 200) {
-          setUsers(users.filter(user => user._id !== userId));
+          setUsers(users.filter((user) => user._id !== userId));
+          if (selectedUser && selectedUser._id === userId) setSelectedUser(null);
           alert('User deleted successfully!');
         }
       } catch (err) {
@@ -131,8 +144,14 @@ const Admin = () => {
           : (b.analyses?.length || 0) - (a.analyses?.length || 0);
       }
       if (field === 'lastAnalysisDate') {
-        const aDate = (a.analyses?.length || 0) > 0 ? new Date(a.analyses[a.analyses.length - 1].createdAt) : new Date(0);
-        const bDate = (b.analyses?.length || 0) > 0 ? new Date(b.analyses[b.analyses.length - 1].createdAt) : new Date(0);
+        const aDate =
+          (a.analyses?.length || 0) > 0
+            ? new Date(a.analyses[a.analyses.length - 1].createdAt)
+            : new Date(0);
+        const bDate =
+          (b.analyses?.length || 0) > 0
+            ? new Date(b.analyses[b.analyses.length - 1].createdAt)
+            : new Date(0);
         return order === 'asc' ? aDate - bDate : bDate - aDate;
       }
       return 0;
@@ -141,13 +160,15 @@ const Admin = () => {
   };
 
   const exportToCSV = () => {
-    const headers = ['Username,Total Analyses,Last Analysis Date'];
-    const rows = filteredUsers.map(user => [
+    const headers = ['Username,Email,Age,Total Analyses,Last Analysis Date'];
+    const rows = filteredUsers.map((user) => [
       user.username,
+      user.email,
+      user.age ?? 'Not specified',
       (user.analyses || []).length,
       (user.analyses || []).length > 0
         ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
-        : 'No analyses yet'
+        : 'No analyses yet',
     ].join(','));
     const csv = [headers, ...rows].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -159,17 +180,19 @@ const Admin = () => {
 
   const getSuggestionsSummary = (analyses) => {
     const suggestionCounts = analyses.reduce((acc, analysis) => {
-      (analysis.analysis?.Suggestions || []).forEach(suggestion => {
+      (analysis.analysis?.Suggestions || []).forEach((suggestion) => {
         acc[suggestion] = (acc[suggestion] || 0) + 1;
       });
       return acc;
     }, {});
-    return Object.entries(suggestionCounts).map(([suggestion, count]) => `${suggestion}: ${count}`).join(', ');
+    return Object.entries(suggestionCounts)
+      .map(([suggestion, count]) => `${suggestion}: ${count}`)
+      .join(', ');
   };
 
   const getEmotionDistribution = (analyses) => {
     const emotionCounts = analyses.reduce((acc, analysis) => {
-      (analysis.analysis?.Emotions || []).forEach(emotion => {
+      (analysis.analysis?.Emotions || []).forEach((emotion) => {
         acc[emotion] = (acc[emotion] || 0) + 1;
       });
       return acc;
@@ -179,14 +202,14 @@ const Admin = () => {
       emotion,
       count,
       percentage: totalEmotions > 0 ? (count / totalEmotions * 100).toFixed(1) : 0,
-      isCritical: criticalEmotions.includes(emotion)
+      isCritical: criticalEmotions.includes(emotion),
     }));
   };
 
   const getCriticalEmotionCount = (analyses) => {
     const uniqueCriticalEmotions = new Set();
-    analyses.forEach(analysis => {
-      (analysis.analysis?.Emotions || []).forEach(emotion => {
+    analyses.forEach((analysis) => {
+      (analysis.analysis?.Emotions || []).forEach((emotion) => {
         if (criticalEmotions.includes(emotion)) {
           uniqueCriticalEmotions.add(emotion);
         }
@@ -195,9 +218,10 @@ const Admin = () => {
     return uniqueCriticalEmotions.size;
   };
 
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (user.analyses || []).length >= minAnalyses
+  const filteredUsers = users.filter(
+    (user) =>
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (user.analyses || []).length >= minAnalyses
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -230,10 +254,12 @@ const Admin = () => {
           />
         </div>
         <div>
-          <button className="export-btn" onClick={exportToCSV}>Export All to CSV</button>
+          <button className="export-btn" onClick={exportToCSV}>
+            Export All to CSV
+          </button>
         </div>
       </div>
-      <div className="users-table" onContextMenu={handleContextMenu}>
+      <div className="users-table">
         <table>
           <thead>
             <tr>
@@ -244,7 +270,8 @@ const Admin = () => {
                 Total Analyses {sortField === 'totalAnalyses' && (sortOrder === 'asc' ? '↑' : '↓')}
               </th>
               <th onClick={() => sortUsers('lastAnalysisDate')}>
-                Last Analysis Date {sortField === 'lastAnalysisDate' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Last Analysis Date{' '}
+                {sortField === 'lastAnalysisDate' && (sortOrder === 'asc' ? '↑' : '↓')}
               </th>
               <th>Details</th>
               <th>Actions</th>
@@ -258,10 +285,13 @@ const Admin = () => {
                   key={user._id}
                   className={selectedUsers.includes(user._id) ? 'selected-row' : ''}
                   onClick={() => toggleUserSelection(user._id)}
+                  onContextMenu={(e) => handleContextMenu(e, user._id)}
                 >
                   <td>
                     {criticalCount > 0 && (
-                      <span className={`critical-indicator ${criticalCount > 1 ? 'red' : 'yellow'}`}></span>
+                      <span
+                        className={`critical-indicator ${criticalCount > 1 ? 'red' : 'yellow'}`}
+                      ></span>
                     )}
                     {user.username}
                   </td>
@@ -273,7 +303,13 @@ const Admin = () => {
                   </td>
                   <td>
                     {(user.analyses || []).length > 0 ? (
-                      <button className="details-btn" onClick={(e) => { e.stopPropagation(); openModal(user.analyses); }}>
+                      <button
+                        className="details-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(user.analyses);
+                        }}
+                      >
                         View Analyses
                       </button>
                     ) : (
@@ -281,7 +317,13 @@ const Admin = () => {
                     )}
                   </td>
                   <td>
-                    <button className="delete-btn" onClick={(e) => { e.stopPropagation(); deleteUser(user._id); }}>
+                    <button
+                      className="delete-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteUser(user._id);
+                      }}
+                    >
                       Delete
                     </button>
                   </td>
@@ -292,16 +334,20 @@ const Admin = () => {
         </table>
       </div>
       <div className="pagination">
-        <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}>Previous</button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}>Next</button>
+        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}>
+          Next
+        </button>
       </div>
 
       {contextMenu.visible && (
-        <div
-          className="context-menu"
-          style={{ top: contextMenu.y, left: contextMenu.x }}
-        >
+        <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
+          <button onClick={() => viewUserDetails(contextMenu.userId)}>View Details</button>
           <button onClick={exportSelectedToCSV}>Export Selected ({selectedUsers.length})</button>
           <button onClick={bulkDeleteUsers}>Delete Selected ({selectedUsers.length})</button>
         </div>
@@ -310,23 +356,27 @@ const Admin = () => {
       {selectedAnalysis && (
         <div className="modal active" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>Close</button>
+            <button className="modal-close" onClick={closeModal}>
+              Close
+            </button>
             <h2>Analysis Details</h2>
             <div className="emotion-chart">
               <h3>Emotion Distribution</h3>
               <div className="chart-container">
-                {getEmotionDistribution(selectedAnalysis).map(({ emotion, percentage, isCritical }) => (
-                  <div key={emotion} className={`emotion-bar ${isCritical ? 'critical' : ''}`}>
-                    <span className="emotion-label">{emotion}</span>
-                    <div className="bar-wrapper">
-                      <div
-                        className="bar"
-                        style={{ width: `${percentage}%` }}
-                      ></div>
-                      <span className="bar-value">({percentage}%)</span>
+                {getEmotionDistribution(selectedAnalysis).map(
+                  ({ emotion, percentage, isCritical }) => (
+                    <div
+                      key={emotion}
+                      className={`emotion-bar ${isCritical ? 'critical' : ''}`}
+                    >
+                      <span className="emotion-label">{emotion}</span>
+                      <div className="bar-wrapper">
+                        <div className="bar" style={{ width: `${percentage}%` }}></div>
+                        <span className="bar-value">({percentage}%)</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </div>
             <ul>
@@ -334,13 +384,16 @@ const Admin = () => {
                 <li key={index}>
                   <strong>Transcription:</strong> {analysis.transcription || 'N/A'}
                   <br />
-                  <strong>Emotions:</strong> {(analysis.analysis?.Emotions || []).join(', ') || 'N/A'}
+                  <strong>Emotions:</strong>{' '}
+                  {(analysis.analysis?.Emotions || []).join(', ') || 'N/A'}
                   <br />
                   <strong>Reasons:</strong> {analysis.analysis?.Reasons || 'N/A'}
                   <br />
-                  <strong>Suggestions:</strong> {(analysis.analysis?.Suggestions || []).join(', ') || 'N/A'}
+                  <strong>Suggestions:</strong>{' '}
+                  {(analysis.analysis?.Suggestions || []).join(', ') || 'N/A'}
                   <br />
-                  <strong>Date:</strong> {analysis.createdAt ? new Date(analysis.createdAt).toLocaleString() : 'N/A'}
+                  <strong>Date:</strong>{' '}
+                  {analysis.createdAt ? new Date(analysis.createdAt).toLocaleString() : 'N/A'}
                   <br />
                   <hr />
                 </li>
@@ -349,10 +402,70 @@ const Admin = () => {
           </div>
         </div>
       )}
+
+      {/* Simplified and stabilized user details modal */}
+      {selectedUser && (
+        <div
+          className="modal active"
+          onClick={(e) => {
+            console.log('Modal background clicked'); // Debug log
+            closeUserDetails();
+          }}
+        >
+          <div
+            className="modal-content large-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log('Modal content clicked'); // Debug log
+            }}
+          >
+            <button className="modal-close" onClick={closeUserDetails}>
+              Close
+            </button>
+            <h2>User Profile Details</h2>
+            {selectedUser ? (
+              <div className="profile-details">
+                <div className="avatar-section">
+                  <img
+                    src={selectedUser.avatar || '/api/placeholder/200/200'}
+                    alt="User Avatar"
+                    className="avatar-full"
+                    onError={(e) => {
+                      e.target.src = '/api/placeholder/200/200';
+                      console.log('Avatar load failed'); // Debug log
+                    }}
+                    onLoad={() => console.log('Avatar loaded successfully')} // Debug log
+                  />
+                </div>
+                <div className="details-list">
+                  <div className="detail-item">
+                    <strong>Username:</strong> {selectedUser.username || 'N/A'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Email:</strong> {selectedUser.email || 'N/A'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Age:</strong> {selectedUser.age ?? 'Not specified'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Google ID:</strong> {selectedUser.googleId ?? 'N/A'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>GitHub ID:</strong> {selectedUser.githubId ?? 'N/A'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Total Analyses:</strong> {(selectedUser.analyses || []).length || 0}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p>Loading user details...</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Admin;
-
-//experimental function highlighting emotions which might indicate depression and sucidial tedencies(still in works)
