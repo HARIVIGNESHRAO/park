@@ -15,7 +15,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: true,
   credentials: true
 }));
 app.use(cookieParser());
@@ -28,13 +28,14 @@ mongoose.connect(
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// User Schema
+// Updated User Schema with avatar field
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String },
   email: { type: String, required: true, unique: true },
   googleId: { type: String, unique: true, sparse: true },
   githubId: { type: String, unique: true, sparse: true },
+  avatar: { type: String }, // Added avatar field to store base64 string or URL
   analyses: [{
     transcription: String,
     analysis: {
@@ -42,7 +43,6 @@ const userSchema = new mongoose.Schema({
       Reasons: String,
       Suggestions: [String],
     },
-    tags: [String], // Added tags field
     createdAt: { type: Date, default: Date.now }
   }]
 });
@@ -71,19 +71,38 @@ const upload = multer({
   }
 });
 
-// Mock analysis function with tags
+// Mock analysis function
 const analyzeTranscription = (transcription) => {
   return {
     Emotions: ['happy', 'calm'],
     Reasons: 'The tone suggests positive feelings',
-    Suggestions: ['Continue positive activities', 'Maintain routine'],
-    tags: ['Positive', 'Daily'] // Example tags
+    Suggestions: ['Continue positive activities', 'Maintain routine']
   };
 };
 
-// Register Route
+// Authentication Middleware
+const authMiddleware = async (req, res, next) => {
+  try {
+    const username = req.cookies.username;
+    if (!username) {
+      return res.status(401).json({ error: "Please log in first" });
+    }
+
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(500).json({ error: "Authentication error: " + error.message });
+  }
+};
+
+// Register Route - Updated to include optional avatar
 app.post("/register", async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, avatar } = req.body;
 
   if (!username || !password || !email) {
     return res.status(400).json({ error: "Username, password, and email are required" });
@@ -102,16 +121,22 @@ app.post("/register", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, email, password: hashedPassword, analyses: [] });
+    const user = new User({
+      username,
+      email,
+      password: hashedPassword,
+      avatar, // Include avatar if provided
+      analyses: []
+    });
     await user.save();
 
-    res.status(201).json({ message: "Registration successful" });
+    res.status(201).json({ message: "Registration successful", username, email, avatar });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
-// Login Route
+// Login Route - Updated to return avatar
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -125,8 +150,13 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password" });
     }
 
-    res.cookie('username', username, { httpOnly: true, path: '/' });
-    res.status(200).json({ message: "Login successful", username: user.username, email: user.email });
+    res.cookie('username', username, { httpOnly: true });
+    res.status(200).json({
+      message: "Login successful",
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar
+    });
   } catch (error) {
     res.status(500).json({ error: "Server error: " + error.message });
   }
@@ -138,7 +168,7 @@ app.post("/logout", (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 });
 
-// Google Login Endpoint
+// Google Login Endpoint - Updated to return avatar
 const googleClient = new OAuth2Client("423273358250-erqvredg1avk5pr09ugj8uve1rg11m3m.apps.googleusercontent.com");
 app.post('/google-login', async (req, res) => {
   try {
@@ -168,15 +198,20 @@ app.post('/google-login', async (req, res) => {
       await user.save();
     }
 
-    res.cookie('username', user.username, { httpOnly: true, path: '/' });
-    res.status(200).json({ message: "Google login successful", username: user.username, email: user.email });
+    res.cookie('username', user.username, { httpOnly: true });
+    res.status(200).json({
+      message: "Google login successful",
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar
+    });
   } catch (error) {
     console.error("Google login error:", error);
     res.status(400).json({ error: 'Google login failed' });
   }
 });
 
-// GitHub Login Endpoint
+// GitHub Login Endpoint - Updated to return avatar
 app.post('/github-login', async (req, res) => {
   try {
     const { code } = req.body;
@@ -214,15 +249,20 @@ app.post('/github-login', async (req, res) => {
       await user.save();
     }
 
-    res.cookie('username', user.username, { httpOnly: true, path: '/' });
-    res.status(200).json({ message: "GitHub login successful", username: user.username, email: user.email });
+    res.cookie('username', user.username, { httpOnly: true });
+    res.status(200).json({
+      message: "GitHub login successful",
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar
+    });
   } catch (error) {
     console.error("GitHub login error:", error);
     res.status(400).json({ error: 'GitHub login failed' });
   }
 });
 
-// Analyze Audio Route
+// Analyze Audio Route - No change needed for avatar
 app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   const { username } = req.body;
 
@@ -243,7 +283,7 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
     const transcription = "Sample transcription from audio";
     const analysis = analyzeTranscription(transcription);
 
-    user.analyses.push({ transcription, analysis, tags: analysis.tags });
+    user.analyses.push({ transcription, analysis });
     await user.save();
 
     fs.unlinkSync(req.file.path);
@@ -257,7 +297,7 @@ app.post("/analyze_audio", upload.single('file'), async (req, res) => {
   }
 });
 
-// Generate PDF Route (Single Analysis)
+// Generate PDF Route - No change needed for avatar
 app.post("/generate_pdf", async (req, res) => {
   const { transcription, analysis, username } = req.body;
 
@@ -308,9 +348,9 @@ app.post("/generate_pdf", async (req, res) => {
   }
 });
 
-// Save Analysis Route with Tags
+// Save Analysis Route - No change needed for avatar
 app.post("/save_analysis", async (req, res) => {
-  const { username, transcription, analysis, tags } = req.body;
+  const { username, transcription, analysis } = req.body;
 
   if (!username || !transcription || !analysis) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -322,10 +362,10 @@ app.post("/save_analysis", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.analyses.push({ transcription, analysis, tags: tags || [] });
+    user.analyses.push({ transcription, analysis });
     await user.save();
 
-    console.log(`Analysis saved for ${username}:`, { transcription, analysis, tags });
+    console.log(`Analysis saved for ${username}:`, { transcription, analysis });
 
     res.json({ message: "Analysis saved successfully", username, email: user.email });
   } catch (error) {
@@ -333,8 +373,6 @@ app.post("/save_analysis", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
-// Export All Analyses Route
 app.post("/users/:username/export-analyses", async (req, res) => {
   const { username } = req.params;
 
@@ -396,85 +434,6 @@ app.post("/users/:username/export-analyses", async (req, res) => {
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
-
-// Get All Users Route
-app.get("/users", async (req, res) => {
-  try {
-    const users = await User.find()
-      .select('-password')
-      .lean();
-
-    if (!users || users.length === 0) {
-      return res.status(404).json({ message: "No users found" });
-    }
-
-    res.status(200).json({
-      message: "Users retrieved successfully",
-      count: users.length,
-      users: users
-    });
-  } catch (error) {
-    console.error("Error fetching users:", error.message);
-    res.status(500).json({ error: "Server error: " + error.message });
-  }
-});
-
-// Get User by Username Route
-app.get("/users/username", async (req, res) => {
-  try {
-    const username = req.cookies.username;
-
-    if (!username) {
-      return res.status(401).json({
-        success: false,
-        message: "No username found in cookies. Please log in."
-      });
-    }
-
-    const user = await User.findOne({
-      username: { $regex: new RegExp(`^${username}$`, 'i') }
-    }).select('-password');
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found"
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      data: { username: user.username, email: user.email, analyses: user.analyses }
-    });
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-      error: error.message
-    });
-  }
-});
-
-// Delete User Route
-app.delete("/users/:id", async (req, res) => {
-  const userId = req.params.id;
-  console.log('Attempting to delete user with ID:', userId);
-  try {
-    const user = await User.findById(userId);
-    console.log('Found user:', user);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    await User.deleteOne({ _id: userId });
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting user:", error.message);
-    res.status(500).json({ error: "Server error: " + error.message });
-  }
-});
-
-// Delete Analysis Route (Single)
 app.delete("/users/:username/analyses/:analysisId", async (req, res) => {
   const { username, analysisId } = req.params;
   console.log('DELETE request received (RAW VERSION):', { username, analysisId });
@@ -505,6 +464,158 @@ app.delete("/users/:username/analyses/:analysisId", async (req, res) => {
   } catch (error) {
     console.error("Error deleting analysis:", error.message);
     res.status(500).json({ success: false, message: "Server error: " + error.message });
+  }
+});
+// Get All Users Route - Updated to include avatar
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find()
+      .select('-password')
+      .lean();
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+
+    res.status(200).json({
+      message: "Users retrieved successfully",
+      count: users.length,
+      users: users.map(user => ({
+        ...user,
+        avatar: user.avatar // Ensure avatar is included
+      }))
+    });
+  } catch (error) {
+    console.error("Error fetching users:", error.message);
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+// Get User by Username Route - Updated to include avatar
+app.get("/users/username", async (req, res) => {
+  try {
+    const username = req.cookies.username;
+
+    if (!username) {
+      return res.status(401).json({
+        success: false,
+        message: "No username found in cookies. Please log in."
+      });
+    }
+
+    const user = await User.findOne({
+      username: { $regex: new RegExp(`^${username}$`, 'i') }
+    }).select('-password');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar, // Include avatar
+        analyses: user.analyses
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message
+    });
+  }
+});
+
+// Delete User Route - No change needed for avatar
+app.delete("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  console.log('Attempting to delete user with ID:', userId);
+  try {
+    const user = await User.findById(userId);
+    console.log('Found user:', user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    await User.deleteOne({ _id: userId });
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error.message);
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+// Profile Routes
+// Get User Profile - Updated to include avatar
+app.get("/api/user/profile", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.user.username })
+      .select('username email name avatar -_id'); // Include avatar
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      name: user.name || user.username,
+      avatar: user.avatar // Include avatar in response
+    });
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+// Update User Profile - Updated to handle avatar
+app.put("/api/user/profile", authMiddleware, async (req, res) => {
+  const { name, email, avatar } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({ error: "Name and email are required" });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email format" });
+  }
+
+  try {
+    const emailInUse = await User.findOne({
+      email,
+      username: { $ne: req.user.username }
+    });
+    if (emailInUse) {
+      return res.status(400).json({ error: "Email already in use" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { username: req.user.username },
+      { name, email, avatar }, // Include avatar in update
+      { new: true, runValidators: true }
+    ).select('username email name avatar -_id');
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      username: updatedUser.username,
+      email: updatedUser.email,
+      name: updatedUser.name,
+      avatar: updatedUser.avatar // Return updated avatar
+    });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
