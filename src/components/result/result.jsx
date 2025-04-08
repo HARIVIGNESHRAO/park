@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./result.css";
 
 const ResultPage = () => {
@@ -7,25 +8,23 @@ const ResultPage = () => {
   const navigate = useNavigate();
   const [transcription, setTranscription] = useState("");
   const [analysis, setAnalysis] = useState({});
-  const [isEnglish, setIsEnglish] = useState(false); // Toggle state for English translation
-  const [translatedText, setTranslatedText] = useState({}); // Store translated content
+  const [isEnglish, setIsEnglish] = useState(false);
+  const [translatedText, setTranslatedText] = useState({});
 
-  // Get username from localStorage
-  const username = localStorage.getItem("username");
+  const username = Cookies.get("username");
 
   useEffect(() => {
     if (location.state) {
       setTranscription(location.state.transcription);
       setAnalysis(location.state.analysis);
     } else {
-      fetchAnalysisFromServer(); // Fetch from backend if not in state
+      fetchAnalysisFromServer();
     }
   }, [location.state]);
 
-  // Fetch latest analysis from backend (if page is refreshed)
   const fetchAnalysisFromServer = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/analyze_audio`, {
+      const response = await fetch(`https://salaar1-production.up.railway.app/analyze_audio`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username }),
@@ -43,9 +42,7 @@ const ResultPage = () => {
     }
   };
 
-  // Function to translate text to English
   const translateToEnglish = async (text) => {
-    // Skip translation for empty or placeholder text
     if (!text || text === "Not identified" || text === "Not provided" || text === "No transcription available") {
       return text;
     }
@@ -64,24 +61,26 @@ const ResultPage = () => {
       return data.translatedText;
     } catch (error) {
       console.error("Error translating text:", error);
-      return text; // Return original text if translation fails
+      return text;
     }
   };
 
-  // Handle toggle change and fetch translations
   const handleToggleChange = async () => {
     const newIsEnglish = !isEnglish;
     setIsEnglish(newIsEnglish);
 
     if (newIsEnglish && !translatedText.transcription) {
-      // Translate all text when toggling to English
       const translatedTranscription = await translateToEnglish(transcription);
+      const translatedTones = await translateToEnglish(analysis.Tones?.join(", ") || "Not identified");
+      const translatedEmotionalWords = await translateToEnglish(analysis.EmotionalWords?.join(", ") || "Not identified");
       const translatedEmotions = await translateToEnglish(analysis.Emotions?.join(", ") || "Not identified");
       const translatedReasons = await translateToEnglish(analysis.Reasons || "Not provided");
       const translatedSuggestions = await translateToEnglish(analysis.Suggestions?.join("; ") || "Not provided");
 
       setTranslatedText({
         transcription: translatedTranscription,
+        tones: translatedTones,
+        emotionalWords: translatedEmotionalWords,
         emotions: translatedEmotions,
         reasons: translatedReasons,
         suggestions: translatedSuggestions,
@@ -91,13 +90,15 @@ const ResultPage = () => {
 
   const handleDownloadPDF = async () => {
     try {
-      const saveResponse = await fetch("http://localhost:5001/save_analysis", {
+      const saveResponse = await fetch("https://salaar1-production.up.railway.app/save_analysis", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username,
           transcription: isEnglish ? translatedText.transcription : transcription,
           analysis: {
+            Tones: isEnglish ? translatedText.tones.split(", ") : analysis.Tones,
+            EmotionalWords: isEnglish ? translatedText.emotionalWords.split(", ") : analysis.EmotionalWords,
             Emotions: isEnglish ? translatedText.emotions.split(", ") : analysis.Emotions,
             Reasons: isEnglish ? translatedText.reasons : analysis.Reasons,
             Suggestions: isEnglish ? translatedText.suggestions.split("; ") : analysis.Suggestions,
@@ -117,6 +118,8 @@ const ResultPage = () => {
         body: JSON.stringify({
           transcription: isEnglish ? translatedText.transcription : transcription,
           analysis: {
+            Tones: isEnglish ? translatedText.tones.split(", ") : analysis.Tones,
+            EmotionalWords: isEnglish ? translatedText.emotionalWords.split(", ") : analysis.EmotionalWords,
             Emotions: isEnglish ? translatedText.emotions.split(", ") : analysis.Emotions,
             Reasons: isEnglish ? translatedText.reasons : analysis.Reasons,
             Suggestions: isEnglish ? translatedText.suggestions.split("; ") : analysis.Suggestions,
@@ -149,7 +152,6 @@ const ResultPage = () => {
     <div className="result-container">
       <h1 className="result-title">Your Results</h1>
 
-      {/* Toggle Switch */}
       <div className="toggle-container">
         <label htmlFor="language-toggle">Translate to English: </label>
         <input
@@ -167,6 +169,14 @@ const ResultPage = () => {
         </p>
         <h2>Emotional Analysis</h2>
         <p>
+          <strong>Tones:</strong>{" "}
+          {isEnglish ? translatedText.tones || analysis.Tones?.join(", ") : analysis.Tones?.join(", ") || "Not identified"}
+        </p>
+        <p>
+          <strong>Emotional Words:</strong>{" "}
+          {isEnglish ? translatedText.emotionalWords || analysis.EmotionalWords?.join(", ") : analysis.EmotionalWords?.join(", ") || "Not identified"}
+        </p>
+        <p>
           <strong>Emotions:</strong>{" "}
           {isEnglish ? translatedText.emotions || analysis.Emotions?.join(", ") : analysis.Emotions?.join(", ") || "Not identified"}
         </p>
@@ -179,7 +189,7 @@ const ResultPage = () => {
           {isEnglish ? translatedText.suggestions || analysis.Suggestions?.join("; ") : analysis.Suggestions?.join("; ") || "Not provided"}
         </p>
       </div>
-      <button className="back-button" onClick={() => navigate("/home")}>
+      <button className="back-button" onClick={() => navigate("/dashboard")}>
         Back to Home
       </button>
       <button className="back-button" onClick={handleDownloadPDF}>
