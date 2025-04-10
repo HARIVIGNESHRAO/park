@@ -169,14 +169,6 @@ const ResultPage = () => {
         </p>
         <h2>Emotional Analysis</h2>
         <p>
-          <strong>Tones:</strong>{" "}
-          {isEnglish ? translatedText.tones || analysis.Tones?.join(", ") : analysis.Tones?.join(", ") || "Not identified"}
-        </p>
-        <p>
-          <strong>Emotional Words:</strong>{" "}
-          {isEnglish ? translatedText.emotionalWords || analysis.EmotionalWords?.join(", ") : analysis.EmotionalWords?.join(", ") || "Not identified"}
-        </p>
-        <p>
           <strong>Emotions:</strong>{" "}
           {isEnglish ? translatedText.emotions || analysis.Emotions?.join(", ") : analysis.Emotions?.join(", ") || "Not identified"}
         </p>
