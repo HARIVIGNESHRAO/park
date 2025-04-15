@@ -8,8 +8,8 @@
 
 /* Sidebar Styles */
 .sidebar {
-  background: linear-gradient(180deg, #2c3e50 0%, #1e3c72 100%);
-  color: white;
+  background: #ffffff;
+  color: black;
   width: 280px;
   transition: all 0.3s ease;
   display: flex;
@@ -29,7 +29,7 @@
   padding: 12px;
   background: none;
   border: none;
-  color: #a0aec0;
+  color: black;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -105,7 +105,7 @@
   display: flex;
   align-items: center;
   padding: 14px 18px;
-  color: #cbd5e0;
+  color: black;
   text-decoration: none;
   border-radius: 10px;
   margin-bottom: 5px;
@@ -115,13 +115,13 @@
 
 .nav-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+  color: black;
   transform: translateX(5px);
 }
 
 .nav-item.active {
   background: linear-gradient(90deg, rgba(66, 153, 225, 0.5) 0%, rgba(66, 153, 225, 0.0) 100%);
-  color: white;
+  color: black;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-left: 3px solid #63b3ed;
 }
@@ -150,7 +150,7 @@
 .logout-container {
   padding: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.1);
+  background:#ffffff;
 }
 
 .logout-button {
@@ -160,7 +160,7 @@
   padding: 12px 18px;
   background: rgba(255, 255, 255, 0.05);
   border: none;
-  color: #cbd5e0;
+  color: black;
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.2s ease;
@@ -169,7 +169,7 @@
 
 .logout-button:hover {
   background-color: rgba(239, 68, 68, 0.2);
-  color: white;
+  color: black;
 }
 
 .logout-button svg {
@@ -184,7 +184,7 @@
 .main-content {
   flex: 1;
   overflow: auto;
-  background-color: #f0f4f8;
+  background-color: #ffffff;
   background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
   background-size: 20px 20px;
 }
@@ -271,14 +271,14 @@
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 16px;
-  color: #2d3748;
+  color: black;
   display: flex;
   align-items: center;
 }
 
 .dashboard-card h2 svg {
   margin-right: 10px;
-  color: #4299e1;
+  color: black;
 }
 
 .dashboard-card p {
@@ -318,7 +318,7 @@
 .stats-value {
   font-size: 2rem;
   font-weight: 700;
-  color: #2d3748;
+  color: black;
   margin-top: 8px;
 }
 
