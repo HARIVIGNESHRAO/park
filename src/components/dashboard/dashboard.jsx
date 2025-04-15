@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { History, LogOut, ChevronLeft, ChevronRight, Bell } from 'lucide-react';
+import { History, LogOut, ChevronLeft, ChevronRight, Bell, UserCircle, LayoutDashboard } from 'lucide-react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,25 +7,30 @@ import './dashboard.css';
 import Home from "../home/home";
 import User from "../user/user";
 import ProfilePage from "../Profile/ProfilePage";
+import NotificationComponent from "../notifications/notification";
 
 const Dashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [username] = useState(Cookies.get('username') || 'Guest');
+  const [username] = useState(Cookies.get('username') || null); // Set to null if no username
   const [activeView, setActiveView] = useState('home'); // Default to 'home'
   const [avatar, setAvatar] = useState(null); // State for avatar
   const navigate = useNavigate();
 
-  // Fetch avatar from localStorage on mount
+  // Check if user is logged in and fetch avatar
   useEffect(() => {
-    const storedAvatar = localStorage.getItem('userAvatar');
-    setAvatar(storedAvatar);
-  }, []);
+    if (!username) {
+    } else {
+      // Fetch avatar from localStorage if logged in
+      const storedAvatar = localStorage.getItem('userAvatar');
+      setAvatar(storedAvatar);
+    }
+  }, [username, navigate]);
 
   const toggleSidebar = () => setSidebarCollapsed(!sidebarCollapsed);
 
   const handleLogout = async () => {
     try {
-      await axios.post('https://salaar1-production.up.railway.app/logout', {}, { withCredentials: true });
+      await axios.post('http://localhost:5001/logout', {}, { withCredentials: true });
       Cookies.remove('username');
       localStorage.removeItem('userAvatar'); // Optional: Clear avatar on logout
       navigate('/login');
@@ -36,12 +41,23 @@ const Dashboard = () => {
     }
   };
 
-  const profileInitial = username.charAt(0).toUpperCase();
+  const profileInitial = username?.charAt(0).toUpperCase() || '';
 
   // Handle navigation clicks
   const handleNavClick = (view) => {
     setActiveView(view);
   };
+
+  // Display login message if not logged in
+  if (!username) {
+    return (
+      <div className="profile-section">
+        <h1>Access Denied</h1><br/>
+        <p>Please login to access this page.</p>
+        <a href="/login">Login</a>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-container">
@@ -71,7 +87,7 @@ const Dashboard = () => {
                 onClick={() => handleNavClick('home')}
                 className={`nav-item ${activeView === 'home' ? 'active' : ''}`}
               >
-                <History size={20} />
+                <LayoutDashboard size={20} />
                 {!sidebarCollapsed && <span>Dashboard</span>}
               </a>
             </li>
@@ -98,7 +114,7 @@ const Dashboard = () => {
                 onClick={() => handleNavClick('profile')}
                 className={`nav-item ${activeView === 'profile' ? 'active' : ''}`}
               >
-                <History size={20} /> {/* Consider replacing with a profile icon */}
+                <UserCircle size={20} />
                 {!sidebarCollapsed && <span>Profile</span>}
               </a>
             </li>
@@ -114,7 +130,7 @@ const Dashboard = () => {
       <div className="main-content">
         {activeView === 'home' && <Home />}
         {activeView === 'user' && <User />}
-        {activeView === 'notifications' && <p>Notifications (Coming Soon)</p>}
+        {activeView === 'notifications' && <NotificationComponent />}
         {activeView === 'profile' && <ProfilePage />}
       </div>
     </div>
