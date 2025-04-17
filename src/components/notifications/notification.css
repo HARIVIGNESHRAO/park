@@ -1,0 +1,196 @@
+.notification-container {
+  max-width: 400px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-icon {
+  color: #007bff;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.notification-body {
+  padding: 16px;
+}
+
+.doctor-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.doctor-avatar {
+  width: 40px;
+  height: 40px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.doctor-name {
+  margin: 0;
+  font-size: 16px;
+}
+
+.doctor-specialty {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.step-label {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.date-grid, .time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.date-button, .time-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.date-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-icon, .time-icon, .chevron-icon, .detail-icon {
+  color: #007bff;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.selected-date {
+  margin: 0;
+  font-size: 14px;
+}
+
+.confirmation-box {
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.confirmation-doctor {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.confirmation-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.detail-date {
+  margin-right: 12px;
+}
+
+.confirm-button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirm-button:hover {
+  background: #0056b3;
+}
+
+.success-message {
+  text-align: center;
+}
+
+.success-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  color: #28a745;
+}
+
+.success-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #28a745;
+}
+
+.success-text, .success-subtext {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.approved-message {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #28a745;
+  font-weight: bold;
+}
