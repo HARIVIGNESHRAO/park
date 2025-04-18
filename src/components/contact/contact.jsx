@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import './contact.css';
+import {Menu, X} from "lucide-react";
 
 const ContactSection = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+    const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,20 +22,61 @@ const ContactSection = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('http://localhost:4200/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
     });
-  };
+
+    if (response.ok) {
+      alert('Thank you for your message! We will get back to you soon.');
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert('Server error. Please try again later.');
+  }
+};
+
 
   return (
     <section className="contact-section" id="contact">
+      <header className="header">
+        <div className="logo">
+          <h1><img src="../images/prahas.png" style={{ width: '100px' }} alt="Vaidya Vani Logo" /></h1>
+          <span>Hearing Emotions Hearing Minds</span>
+        </div>
+
+        <div className="nav-container">
+          <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/#demo">Try Demo</a></li>
+              <li><a href="/login">Login</a></li>
+              <li className="active"><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+
+          <button className="menu-toggle" onClick={toggleMenu}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </header>
+      <br/><br/><br/>
       <h2>Contact Us</h2>
       <div className="contact-container">
         <div className="contact-info">
