@@ -494,3 +494,96 @@ tr.selected-row {
     font-size: 12px;
   }
 }
+/* Styling for follow-up status */
+.follow-up-status {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.follow-up-status.yes {
+  background-color: #ff4444;
+  color: white;
+}
+
+.follow-up-status.no {
+  background-color: #44ff44;
+  color: black;
+}
+
+/* Adjust table column widths for better spacing */
+.users-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th, .users-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Specific column widths to prevent crowding */
+.users-table th:nth-child(1), .users-table td:nth-child(1) { /* Username */
+  width: 20%;
+}
+.users-table th:nth-child(2), .users-table td:nth-child(2) { /* Phone Number */
+  width: 15%;
+}
+.users-table th:nth-child(3), .users-table td:nth-child(3) { /* Total Analyses */
+  width: 15%;
+}
+.users-table th:nth-child(4), .users-table td:nth-child(4) { /* Last Analysis Date */
+  width: 20%;
+}
+.users-table th:nth-child(5), .users-table td:nth-child(5) { /* Follow Up Required */
+  width: 15%;
+}
+.users-table th:nth-child(6), .users-table td:nth-child(6) { /* Details */
+  width: 10%;
+}
+.users-table th:nth-child(7), .users-table td:nth-child(7) { /* Actions */
+  width: 10%;
+}
+
+.admin-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-container h1 {
+  color: #333;
+  font-size: 2rem;
+}
+
+.admin-container p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin: 20px 0;
+}
+
+.login-button, .logout-btn {
+  padding: 10px 20px;
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.login-button:hover, .logout-btn:hover {
+  background-color: #e63946;
+}
