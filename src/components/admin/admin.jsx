@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import './admin.css';
 
 const Admin = () => {
@@ -16,27 +18,69 @@ const Admin = () => {
   const [minAnalyses, setMinAnalyses] = useState(0);
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, userId: null });
   const itemsPerPage = 10;
+  const username = Cookies.get('username');
+  const navigate = useNavigate();
 
   const criticalEmotions = ['Sadness', 'Hopelessness', 'Despair'];
 
+  // Check if user is logged in and fetch users
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('http://localhost:5001/users');
-        setUsers(response.data.users || []);
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to fetch users: ' + err.message);
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
+    if (!username) {
+    } else {
+      const fetchUsers = async () => {
+        try {
+          const response = await axios.get('http://localhost:5001/users');
+          // Initialize followUpRequired as false if not present
+          const usersWithFollowUp = response.data.users.map(user => ({
+            ...user,
+            followUpRequired: user.followUpRequired || false,
+          }));
+          setUsers(usersWithFollowUp || []);
+          setLoading(false);
+        } catch (err) {
+          setError('Failed to fetch users: ' + err.message);
+          setLoading(false);
+        }
+      };
+      fetchUsers();
+    }
+  }, [username, navigate]);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('http://localhost:5001/logout', {}, { withCredentials: true });
+      Cookies.remove('username');
+      navigate('/login');
+    } catch (error) {
+      Cookies.remove('username');
+      navigate('/login');
+    }
+  };
 
   const toggleUserSelection = (userId) => {
     setSelectedUsers((prev) =>
       prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
+  };
+
+  const toggleFollowUp = async (userId, currentStatus) => {
+    const newStatus = !currentStatus;
+    const confirmChange = window.confirm(
+      `Change follow-up status to ${newStatus ? 'Yes' : 'No'} for this user?`
+    );
+
+    if (confirmChange) {
+      try {
+        await axios.patch(`http://localhost:5001/users/${userId}`, {
+          followUpRequired: newStatus,
+        });
+        setUsers(users.map(user =>
+          user._id === userId ? { ...user, followUpRequired: newStatus } : user
+        ));
+      } catch (err) {
+        alert('Failed to update follow-up status: ' + (err.response?.data?.message || err.message));
+      }
+    }
   };
 
   const bulkDeleteUsers = async () => {
@@ -60,16 +104,45 @@ const Admin = () => {
   const exportSelectedToCSV = () => {
     if (selectedUsers.length === 0) return;
     const selectedData = users.filter((user) => selectedUsers.includes(user._id));
-    const headers = ['Username,Email,Age,Total Analyses,Last Analysis Date'];
-    const rows = selectedData.map((user) => [
-      user.username,
-      user.email,
-      user.age ?? 'Not specified',
-      (user.analyses || []).length,
-      (user.analyses || []).length > 0
-        ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
-        : 'No analyses yet',
-    ].join(','));
+    const headers = [
+      'Username',
+      'Email',
+      'Phone Number',
+      'Age',
+      'Total Analyses',
+      'Last Analysis Date',
+      'Follow Up Required',
+      'Appointments',
+      'Analyses',
+    ].join(',');
+
+    const rows = selectedData.map((user) => {
+      const analysesDetails = (user.analyses || []).map((analysis) => {
+        return [
+          `Transcription: ${analysis.transcription || 'N/A'}`,
+          `Emotions: ${(analysis.analysis?.Emotions || []).join(', ') || 'N/A'}`,
+          `Reasons: ${analysis.analysis?.Reasons || 'N/A'}`,
+          `Date: ${analysis.createdAt ? new Date(analysis.createdAt).toLocaleString() : 'N/A'}`,
+        ].join('; ');
+      }).join(' | ');
+
+      return [
+        `"${user.username}"`,
+        `"${user.email}"`,
+        `"${user.phoneNumber ?? 'Not specified'}"`,
+        `"${user.age ?? 'Not specified'}"`,
+        (user.analyses || []).length,
+        (user.analyses || []).length > 0
+          ? `"${new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()}"`
+          : '"No analyses yet"',
+        user.followUpRequired ? 'Yes' : 'No',
+        user.AppointmentApproved && user.appointments?.length > 0
+          ? `"${user.appointments.map((appt) => `${appt.date} ${appt.time} with ${appt.doctor}`).join('; ')}"`
+          : '"No approved appointments"',
+        `"${analysesDetails.replace(/"/g, '""')}"`,
+      ].join(',');
+    });
+
     const csv = [headers, ...rows].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const link = document.createElement('a');
@@ -95,13 +168,13 @@ const Admin = () => {
 
   const viewUserDetails = (userId) => {
     const user = users.find((u) => u._id === userId);
-    console.log('Opening user details for:', user); // Debug log
+    console.log('Opening user details for:', user);
     setSelectedUser(user);
     setContextMenu({ visible: false, x: 0, y: 0, userId: null });
   };
 
   const closeUserDetails = () => {
-    console.log('Closing user details'); // Debug log
+    console.log('Closing user details');
     setSelectedUser(null);
   };
 
@@ -154,40 +227,80 @@ const Admin = () => {
             : new Date(0);
         return order === 'asc' ? aDate - bDate : bDate - aDate;
       }
+      if (field === 'phoneNumber') {
+        const aPhone = a.phoneNumber || '';
+        const bPhone = b.phoneNumber || '';
+        return order === 'asc'
+          ? aPhone.localeCompare(bPhone)
+          : bPhone.localeCompare(aPhone);
+      }
+      if (field === 'followUpRequired') {
+        return order === 'asc'
+          ? (a.followUpRequired ? 1 : 0) - (b.followUpRequired ? 1 : 0)
+          : (b.followUpRequired ? 1 : 0) - (a.followUpRequired ? 1 : 0);
+      }
+      if (field === 'appointments') {
+        const aAppt = a.AppointmentApproved && a.appointments?.length > 0
+          ? a.appointments[0].date
+          : '';
+        const bAppt = b.AppointmentApproved && b.appointments?.length > 0
+          ? b.appointments[0].date
+          : '';
+        return order === 'asc'
+          ? aAppt.localeCompare(bAppt)
+          : bAppt.localeCompare(aAppt);
+      }
       return 0;
     });
     setUsers(sorted);
   };
 
   const exportToCSV = () => {
-    const headers = ['Username,Email,Age,Total Analyses,Last Analysis Date'];
-    const rows = filteredUsers.map((user) => [
-      user.username,
-      user.email,
-      user.age ?? 'Not specified',
-      (user.analyses || []).length,
-      (user.analyses || []).length > 0
-        ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
-        : 'No analyses yet',
-    ].join(','));
+    const headers = [
+      'Username',
+      'Email',
+      'Phone Number',
+      'Age',
+      'Total Analyses',
+      'Last Analysis Date',
+      'Follow Up Required',
+      'Appointments',
+      'Analyses',
+    ].join(',');
+
+    const rows = filteredUsers.map((user) => {
+      const analysesDetails = (user.analyses || []).map((analysis) => {
+        return [
+          `Transcription: ${analysis.transcription || 'N/A'}`,
+          `Emotions: ${(analysis.analysis?.Emotions || []).join(', ') || 'N/A'}`,
+          `Reasons: ${analysis.analysis?.Reasons || 'N/A'}`,
+          `Date: ${analysis.createdAt ? new Date(analysis.createdAt).toLocaleString() : 'N/A'}`,
+        ].join('; ');
+      }).join(' | ');
+
+      return [
+        `"${user.username}"`,
+        `"${user.email}"`,
+        `"${user.phoneNumber ?? 'Not specified'}"`,
+        `"${user.age ?? 'Not specified'}"`,
+        (user.analyses || []).length,
+        (user.analyses || []).length > 0
+          ? `"${new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()}"`
+          : '"No analyses yet"',
+        user.followUpRequired ? 'Yes' : 'No',
+        user.AppointmentApproved && user.appointments?.length > 0
+          ? `"${user.appointments.map((appt) => `${appt.date} ${appt.time} with ${appt.doctor}`).join('; ')}"`
+          : '"No approved appointments"',
+        `"${analysesDetails.replace(/"/g, '""')}"`,
+      ].join(',');
+    });
+
     const csv = [headers, ...rows].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'users_data.csv';
     link.click();
-  };
-
-  const getSuggestionsSummary = (analyses) => {
-    const suggestionCounts = analyses.reduce((acc, analysis) => {
-      (analysis.analysis?.Suggestions || []).forEach((suggestion) => {
-        acc[suggestion] = (acc[suggestion] || 0) + 1;
-      });
-      return acc;
-    }, {});
-    return Object.entries(suggestionCounts)
-      .map(([suggestion, count]) => `${suggestion}: ${count}`)
-      .join(', ');
   };
 
   const getEmotionDistribution = (analyses) => {
@@ -229,12 +342,27 @@ const Admin = () => {
   const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
+  // Display login message if not logged in
+  if (!username) {
+    return (
+      <div className="admin-container">
+        <h1>Access Denied</h1>
+        <p>Only authorized users with restricted access can log in.</p>
+      </div>
+    );
+  }
+
   if (loading) return <div className="loading"><div className="spinner"></div>Loading users...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="admin-container" onClick={closeContextMenu}>
-      <h1>Admin Dashboard - User Details</h1>
+      <div className="admin-header">
+        <h1>Dr.Prashik Dashboard - User Details</h1>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
       <div className="dashboard-controls">
         <div className="filter-group">
           <input
@@ -263,8 +391,14 @@ const Admin = () => {
         <table>
           <thead>
             <tr>
+              <th onClick={() => sortUsers('appointments')}>
+                Appointments {sortField === 'appointments' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
               <th onClick={() => sortUsers('username')}>
                 Username {sortField === 'username' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
+              <th onClick={() => sortUsers('phoneNumber')}>
+                Phone Number {sortField === 'phoneNumber' && (sortOrder === 'asc' ? '↑' : '↓')}
               </th>
               <th onClick={() => sortUsers('totalAnalyses')}>
                 Total Analyses {sortField === 'totalAnalyses' && (sortOrder === 'asc' ? '↑' : '↓')}
@@ -272,6 +406,9 @@ const Admin = () => {
               <th onClick={() => sortUsers('lastAnalysisDate')}>
                 Last Analysis Date{' '}
                 {sortField === 'lastAnalysisDate' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </th>
+              <th onClick={() => sortUsers('followUpRequired')}>
+                Follow Up Required {sortField === 'followUpRequired' && (sortOrder === 'asc' ? '↑' : '↓')}
               </th>
               <th>Details</th>
               <th>Actions</th>
@@ -288,6 +425,15 @@ const Admin = () => {
                   onContextMenu={(e) => handleContextMenu(e, user._id)}
                 >
                   <td>
+                    {user.AppointmentApproved && user.appointments?.length > 0
+                      ? user.appointments.map((appt, index) => (
+                          <div key={index}>
+                            {appt.date} {appt.time} with {appt.doctor}
+                          </div>
+                        ))
+                      : 'No approved appointments'}
+                  </td>
+                  <td>
                     {criticalCount > 0 && (
                       <span
                         className={`critical-indicator ${criticalCount > 1 ? 'red' : 'yellow'}`}
@@ -295,11 +441,23 @@ const Admin = () => {
                     )}
                     {user.username}
                   </td>
+                  <td>{user.phoneNumber ?? 'Not specified'}</td>
                   <td>{(user.analyses || []).length}</td>
                   <td>
                     {(user.analyses || []).length > 0
                       ? new Date(user.analyses[user.analyses.length - 1].createdAt).toLocaleString()
                       : 'No analyses yet'}
+                  </td>
+                  <td>
+                    <span
+                      className={`follow-up-status ${user.followUpRequired ? 'yes' : 'No'}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFollowUp(user._id, user.followUpRequired);
+                      }}
+                    >
+                      {user.followUpRequired ? 'Yes' : 'No'}
+                    </span>
                   </td>
                   <td>
                     {(user.analyses || []).length > 0 ? (
@@ -389,9 +547,6 @@ const Admin = () => {
                   <br />
                   <strong>Reasons:</strong> {analysis.analysis?.Reasons || 'N/A'}
                   <br />
-                  <strong>Suggestions:</strong>{' '}
-                  {(analysis.analysis?.Suggestions || []).join(', ') || 'N/A'}
-                  <br />
                   <strong>Date:</strong>{' '}
                   {analysis.createdAt ? new Date(analysis.createdAt).toLocaleString() : 'N/A'}
                   <br />
@@ -403,12 +558,11 @@ const Admin = () => {
         </div>
       )}
 
-      {/* Simplified and stabilized user details modal */}
       {selectedUser && (
         <div
           className="modal active"
           onClick={(e) => {
-            console.log('Modal background clicked'); // Debug log
+            console.log('Modal background clicked');
             closeUserDetails();
           }}
         >
@@ -416,7 +570,7 @@ const Admin = () => {
             className="modal-content large-modal"
             onClick={(e) => {
               e.stopPropagation();
-              console.log('Modal content clicked'); // Debug log
+              console.log('Modal content clicked');
             }}
           >
             <button className="modal-close" onClick={closeUserDetails}>
@@ -432,9 +586,9 @@ const Admin = () => {
                     className="avatar-full"
                     onError={(e) => {
                       e.target.src = '/api/placeholder/200/200';
-                      console.log('Avatar load failed'); // Debug log
+                      console.log('Avatar load failed');
                     }}
-                    onLoad={() => console.log('Avatar loaded successfully')} // Debug log
+                    onLoad={() => console.log('Avatar loaded successfully')}
                   />
                 </div>
                 <div className="details-list">
@@ -445,7 +599,13 @@ const Admin = () => {
                     <strong>Email:</strong> {selectedUser.email || 'N/A'}
                   </div>
                   <div className="detail-item">
+                    <strong>Phone Number:</strong> {selectedUser.phoneNumber ?? 'Not specified'}
+                  </div>
+                  <div className="detail-item">
                     <strong>Age:</strong> {selectedUser.age ?? 'Not specified'}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Follow Up Required:</strong> {selectedUser.followUpRequired ? 'Yes' : 'No'}
                   </div>
                   <div className="detail-item">
                     <strong>Google ID:</strong> {selectedUser.googleId ?? 'N/A'}
@@ -455,6 +615,16 @@ const Admin = () => {
                   </div>
                   <div className="detail-item">
                     <strong>Total Analyses:</strong> {(selectedUser.analyses || []).length || 0}
+                  </div>
+                  <div className="detail-item">
+                    <strong>Appointments:</strong>
+                    {selectedUser.AppointmentApproved && selectedUser.appointments?.length > 0
+                      ? selectedUser.appointments.map((appt, index) => (
+                          <div key={index}>
+                            {appt.date} {appt.time} with {appt.doctor}
+                          </div>
+                        ))
+                      : 'No approved appointments'}
                   </div>
                 </div>
               </div>
