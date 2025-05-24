@@ -1,0 +1,160 @@
+/* Main container */
+.carousel-page {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1a202c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Blurred background image */
+.carousel-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.4);
+  transform: scale(1.1);
+}
+
+/* Carousel container */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  padding: 0 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Navigation effect */
+.carousel-container.navigating {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+/* Images container */
+.carousel-images {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Individual image container */
+.carousel-image {
+  position: absolute;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  width: 400px;
+  height: 250px;
+  opacity: 0.7;
+  z-index: 5;
+  filter: blur(2px);
+}
+
+/* Active image */
+.carousel-image.active {
+  opacity: 1;
+  z-index: 10;
+  filter: none;
+  transform: translateX(0) scale(1);
+}
+
+/* Position styles */
+.carousel-image.position-0 {
+  transform: translateX(0) scale(1);
+}
+
+.carousel-image.position-1 {
+  transform: translateX(220px) scale(0.85);
+}
+
+.carousel-image.position-2 {
+  transform: translateX(440px) scale(0.7);
+  opacity: 0;
+}
+
+.carousel-image.position--1 {
+  transform: translateX(-220px) scale(0.85);
+}
+
+.carousel-image.position--2 {
+  transform: translateX(-440px) scale(0.7);
+  opacity: 0;
+}
+
+/* Image styling */
+.carousel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Indicators container */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Individual indicator */
+.carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #a0aec0;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* Active indicator */
+.carousel-indicator.active {
+  background-color: white;
+  transform: scale(1.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-image {
+    width: 280px;
+    height: 180px;
+  }
+
+  .carousel-image.position-1 {
+    transform: translateX(160px) scale(0.85);
+  }
+
+  .carousel-image.position--1 {
+    transform: translateX(-160px) scale(0.85);
+  }
+
+  .carousel-images {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-image {
+    width: 220px;
+    height: 140px;
+  }
+
+  .carousel-image.position-1 {
+    transform: translateX(120px) scale(0.85);
+  }
+
+  .carousel-image.position--1 {
+    transform: translateX(-120px) scale(0.85);
+  }
+
+  .carousel-images {
+    height: 250px;
+  }
+}

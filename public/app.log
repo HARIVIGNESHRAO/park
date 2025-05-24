@@ -1,0 +1,718 @@
+2025-04-18 10:43:29,531 INFO: Starting Flask application
+2025-04-18 10:43:29,583 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 10:43:29,584 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 10:43:29,602 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 10:43:37,113 INFO: Starting Flask application
+2025-04-18 10:43:37,131 WARNING:  * Debugger is active!
+2025-04-18 10:43:37,140 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 10:46:02,257 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\_logging\\__init__.py', reloading
+2025-04-18 10:46:02,273 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\_logging\\_internal.py', reloading
+2025-04-18 10:46:02,281 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\_subclasses\\__init__.py', reloading
+2025-04-18 10:46:02,282 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\_tensor.py', reloading
+2025-04-18 10:46:02,406 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\utils\\__init__.py', reloading
+2025-04-18 10:46:02,410 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\utils\\_python_dispatch.py', reloading
+2025-04-18 10:46:02,474 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\torch\\_subclasses\\meta_utils.py', reloading
+2025-04-18 10:46:03,373 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 10:46:08,727 INFO: Starting Flask application
+2025-04-18 10:46:08,737 WARNING:  * Debugger is active!
+2025-04-18 10:46:08,742 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 10:50:04,209 ERROR: Failed to initialize Groq client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-04-18 10:51:22,118 INFO: Starting Flask application
+2025-04-18 10:51:22,147 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 10:51:22,149 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 10:51:22,154 INFO:  * Restarting with stat
+2025-04-18 10:51:26,853 INFO: Starting Flask application
+2025-04-18 10:51:26,861 WARNING:  * Debugger is active!
+2025-04-18 10:51:26,869 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 10:52:33,101 INFO: Starting Flask application
+2025-04-18 10:52:33,113 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 10:52:33,113 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 10:52:33,115 INFO:  * Restarting with stat
+2025-04-18 10:52:37,795 INFO: Starting Flask application
+2025-04-18 10:52:37,800 WARNING:  * Debugger is active!
+2025-04-18 10:52:37,805 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 12:26:21,769 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 12:26:21,771 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 12:26:22,408 INFO: Starting Flask application
+2025-04-18 12:26:22,550 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.57.232:5000
+2025-04-18 12:26:22,550 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 12:26:22,571 INFO:  * Restarting with stat
+2025-04-18 12:26:30,004 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 12:26:30,005 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 12:26:30,508 INFO: Starting Flask application
+2025-04-18 12:26:30,517 WARNING:  * Debugger is active!
+2025-04-18 12:26:30,527 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 12:28:12,127 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:12] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-18 12:28:12,389 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-18 12:28:15,033 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:15] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-18 12:28:15,863 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:15] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-18 12:28:42,258 INFO: Received request to /analyze_multiple_audio
+2025-04-18 12:28:42,261 INFO: Received request to /analyze_multiple_audio
+2025-04-18 12:28:42,284 INFO: Saved file: Uploads\response_0_recording_0.webm
+2025-04-18 12:28:42,284 INFO: Transcribing file Uploads\response_0_recording_0.webm
+2025-04-18 12:28:42,286 INFO: Saved file: Uploads\response_0_recording_0.webm
+2025-04-18 12:28:42,287 INFO: Transcribing file Uploads\response_0_recording_0.webm
+2025-04-18 12:28:42,481 ERROR: Processing error for response 0: [WinError 2] The system cannot find the file specified
+Traceback (most recent call last):
+  File "C:\Kmit\hero\public\app.py", line 218, in analyze_multiple_audio
+    transcription = model.transcribe(filepath, language=language)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\transcribe.py", line 133, in transcribe
+    mel = log_mel_spectrogram(audio, model.dims.n_mels, padding=N_SAMPLES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\audio.py", line 140, in log_mel_spectrogram
+    audio = load_audio(audio)
+            ^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\audio.py", line 58, in load_audio
+    out = run(cmd, capture_output=True, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 550, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 1028, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 1540, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+2025-04-18 12:28:42,490 ERROR: Processing error for response 0: [WinError 2] The system cannot find the file specified
+Traceback (most recent call last):
+  File "C:\Kmit\hero\public\app.py", line 218, in analyze_multiple_audio
+    transcription = model.transcribe(filepath, language=language)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\transcribe.py", line 133, in transcribe
+    mel = log_mel_spectrogram(audio, model.dims.n_mels, padding=N_SAMPLES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\audio.py", line 140, in log_mel_spectrogram
+    audio = load_audio(audio)
+            ^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\site-packages\whisper\audio.py", line 58, in load_audio
+    out = run(cmd, capture_output=True, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 550, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 1028, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\hariv\anaconda3\envs\hero\Lib\subprocess.py", line 1540, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+2025-04-18 12:28:42,491 INFO: Deleted file: Uploads\response_0_recording_0.webm
+2025-04-18 12:28:42,493 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:42] "[35m[1mPOST /analyze_multiple_audio HTTP/1.1[0m" 500 -
+2025-04-18 12:28:42,495 INFO: 127.0.0.1 - - [18/Apr/2025 12:28:42] "[35m[1mPOST /analyze_multiple_audio HTTP/1.1[0m" 500 -
+2025-04-18 12:29:13,163 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:13] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-18 12:29:30,233 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:30] "[33mGET / HTTP/1.1[0m" 404 -
+2025-04-18 12:29:30,317 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:30] "[33mGET /loginMsg.js HTTP/1.1[0m" 404 -
+2025-04-18 12:29:30,349 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:30] "[33mGET /cgi/get.cgi?cmd=home_login HTTP/1.1[0m" 404 -
+2025-04-18 12:29:34,088 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:34] "[33mGET /rootDesc.xml HTTP/1.1[0m" 404 -
+2025-04-18 12:29:34,762 INFO: 192.168.57.232 - - [18/Apr/2025 12:29:34] "[33mPOST /boaform/admin/formPing HTTP/1.1[0m" 404 -
+2025-04-18 13:05:10,650 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 13:05:10,652 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 13:05:11,342 INFO: Starting Flask application
+2025-04-18 13:51:07,519 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 13:51:07,521 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 13:51:07,895 INFO: Starting Flask application
+2025-04-18 14:35:32,047 ERROR: Failed to load Whisper model: load_model() got an unexpected keyword argument 'weights_only'
+2025-04-18 14:38:57,163 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 14:38:57,164 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 14:38:57,540 INFO: Starting Flask application
+2025-04-18 14:38:57,591 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 14:38:57,591 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 14:38:57,668 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 14:39:02,678 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 14:39:02,679 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 14:39:03,126 INFO: Starting Flask application
+2025-04-18 14:39:03,134 WARNING:  * Debugger is active!
+2025-04-18 14:39:03,151 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 14:43:56,743 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 14:43:56,745 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 14:43:57,223 INFO: Starting Flask application
+2025-04-18 14:43:57,244 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 14:43:57,245 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 14:43:57,255 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 14:44:03,229 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 14:44:03,229 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 14:44:03,667 INFO: Starting Flask application
+2025-04-18 14:44:03,677 WARNING:  * Debugger is active!
+2025-04-18 14:44:03,688 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 14:47:44,610 ERROR: Failed to load Whisper model: load_model() got an unexpected keyword argument 'weights_only'
+2025-04-18 14:48:16,981 INFO: Starting Flask application
+2025-04-18 14:48:16,996 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.104:5000
+2025-04-18 14:48:16,996 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 14:48:17,004 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 14:48:22,224 INFO: Starting Flask application
+2025-04-18 14:48:22,230 WARNING:  * Debugger is active!
+2025-04-18 14:48:22,235 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 14:50:11,305 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Scripts\\pip-script.py', reloading
+2025-04-18 14:50:12,438 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 14:50:18,455 INFO: Starting Flask application
+2025-04-18 14:50:18,461 WARNING:  * Debugger is active!
+2025-04-18 14:50:18,466 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 14:54:18,759 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\__init__.py', reloading
+2025-04-18 14:54:18,760 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\__init__.py', reloading
+2025-04-18 14:54:18,760 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\__main__.py', reloading
+2025-04-18 14:54:18,761 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\__main__.py', reloading
+2025-04-18 14:54:18,761 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\api.py', reloading
+2025-04-18 14:54:18,762 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\api.py', reloading
+2025-04-18 14:54:18,762 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cd.py', reloading
+2025-04-18 14:54:18,787 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cd.py', reloading
+2025-04-18 14:54:18,788 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cli\\__init__.py', reloading
+2025-04-18 14:54:18,789 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cli\\__init__.py', reloading
+2025-04-18 14:54:18,790 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cli\\__main__.py', reloading
+2025-04-18 14:54:18,790 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cli\\__main__.py', reloading
+2025-04-18 14:54:18,791 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\constant.py', reloading
+2025-04-18 14:54:18,792 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\constant.py', reloading
+2025-04-18 14:54:18,792 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\legacy.py', reloading
+2025-04-18 14:54:18,793 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\legacy.py', reloading
+2025-04-18 14:54:18,793 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\md.py', reloading
+2025-04-18 14:54:18,794 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\md.py', reloading
+2025-04-18 14:54:18,794 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\models.py', reloading
+2025-04-18 14:54:18,795 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\models.py', reloading
+2025-04-18 14:54:18,797 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\utils.py', reloading
+2025-04-18 14:54:18,798 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\utils.py', reloading
+2025-04-18 14:54:18,799 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\version.py', reloading
+2025-04-18 14:54:18,799 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\version.py', reloading
+2025-04-18 14:54:18,807 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\gmpy2\\__init__.py', reloading
+2025-04-18 14:54:18,815 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\__init__.py', reloading
+2025-04-18 14:54:18,816 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\__init__.py', reloading
+2025-04-18 14:54:18,846 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\codec.py', reloading
+2025-04-18 14:54:18,847 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\codec.py', reloading
+2025-04-18 14:54:18,848 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\compat.py', reloading
+2025-04-18 14:54:18,848 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\compat.py', reloading
+2025-04-18 14:54:18,849 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\core.py', reloading
+2025-04-18 14:54:18,850 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\core.py', reloading
+2025-04-18 14:54:18,850 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\idnadata.py', reloading
+2025-04-18 14:54:18,851 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\idnadata.py', reloading
+2025-04-18 14:54:18,851 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\intranges.py', reloading
+2025-04-18 14:54:18,852 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\intranges.py', reloading
+2025-04-18 14:54:18,853 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\package_data.py', reloading
+2025-04-18 14:54:18,853 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\package_data.py', reloading
+2025-04-18 14:54:18,855 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\uts46data.py', reloading
+2025-04-18 14:54:18,856 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\uts46data.py', reloading
+2025-04-18 14:54:18,883 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\__init__.py', reloading
+2025-04-18 14:54:18,884 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\__init__.py', reloading
+2025-04-18 14:54:18,930 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\__init__.py', reloading
+2025-04-18 14:54:18,931 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\__init__.py', reloading
+2025-04-18 14:54:19,121 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\__init__.py', reloading
+2025-04-18 14:54:19,121 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\__init__.py', reloading
+2025-04-18 14:54:19,180 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\clique.py', reloading
+2025-04-18 14:54:19,192 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\clique.py', reloading
+2025-04-18 14:54:19,193 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\clustering_coefficient.py', reloading
+2025-04-18 14:54:19,194 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\clustering_coefficient.py', reloading
+2025-04-18 14:54:19,195 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\connectivity.py', reloading
+2025-04-18 14:54:19,196 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\connectivity.py', reloading
+2025-04-18 14:54:19,196 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\distance_measures.py', reloading
+2025-04-18 14:54:19,197 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\distance_measures.py', reloading
+2025-04-18 14:54:19,198 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\dominating_set.py', reloading
+2025-04-18 14:54:19,199 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\dominating_set.py', reloading
+2025-04-18 14:54:19,199 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\kcomponents.py', reloading
+2025-04-18 14:54:19,200 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\kcomponents.py', reloading
+2025-04-18 14:54:19,201 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\matching.py', reloading
+2025-04-18 14:54:19,202 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\matching.py', reloading
+2025-04-18 14:54:19,202 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\maxcut.py', reloading
+2025-04-18 14:54:19,203 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\maxcut.py', reloading
+2025-04-18 14:54:19,203 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\ramsey.py', reloading
+2025-04-18 14:54:19,204 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\ramsey.py', reloading
+2025-04-18 14:54:19,205 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\steinertree.py', reloading
+2025-04-18 14:54:19,205 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\steinertree.py', reloading
+2025-04-18 14:54:19,206 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,207 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,258 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_approx_clust_coeff.py', reloading
+2025-04-18 14:54:19,259 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_approx_clust_coeff.py', reloading
+2025-04-18 14:54:19,259 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_clique.py', reloading
+2025-04-18 14:54:19,260 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_clique.py', reloading
+2025-04-18 14:54:19,261 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_connectivity.py', reloading
+2025-04-18 14:54:19,262 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_connectivity.py', reloading
+2025-04-18 14:54:19,262 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_distance_measures.py', reloading
+2025-04-18 14:54:19,263 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_distance_measures.py', reloading
+2025-04-18 14:54:19,264 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_dominating_set.py', reloading
+2025-04-18 14:54:19,264 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_dominating_set.py', reloading
+2025-04-18 14:54:19,265 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_kcomponents.py', reloading
+2025-04-18 14:54:19,265 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_kcomponents.py', reloading
+2025-04-18 14:54:19,266 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_matching.py', reloading
+2025-04-18 14:54:19,267 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_matching.py', reloading
+2025-04-18 14:54:19,267 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_maxcut.py', reloading
+2025-04-18 14:54:19,268 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_maxcut.py', reloading
+2025-04-18 14:54:19,268 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_ramsey.py', reloading
+2025-04-18 14:54:19,269 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_ramsey.py', reloading
+2025-04-18 14:54:19,270 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_steinertree.py', reloading
+2025-04-18 14:54:19,270 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_steinertree.py', reloading
+2025-04-18 14:54:19,271 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_traveling_salesman.py', reloading
+2025-04-18 14:54:19,272 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_traveling_salesman.py', reloading
+2025-04-18 14:54:19,272 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_treewidth.py', reloading
+2025-04-18 14:54:19,287 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_treewidth.py', reloading
+2025-04-18 14:54:19,288 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_vertex_cover.py', reloading
+2025-04-18 14:54:19,289 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\tests\\test_vertex_cover.py', reloading
+2025-04-18 14:54:19,290 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\traveling_salesman.py', reloading
+2025-04-18 14:54:19,290 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\traveling_salesman.py', reloading
+2025-04-18 14:54:19,291 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\treewidth.py', reloading
+2025-04-18 14:54:19,292 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\treewidth.py', reloading
+2025-04-18 14:54:19,292 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\vertex_cover.py', reloading
+2025-04-18 14:54:19,293 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\approximation\\vertex_cover.py', reloading
+2025-04-18 14:54:19,294 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\__init__.py', reloading
+2025-04-18 14:54:19,295 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\__init__.py', reloading
+2025-04-18 14:54:19,321 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\connectivity.py', reloading
+2025-04-18 14:54:19,321 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\connectivity.py', reloading
+2025-04-18 14:54:19,322 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\correlation.py', reloading
+2025-04-18 14:54:19,323 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\correlation.py', reloading
+2025-04-18 14:54:19,324 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\mixing.py', reloading
+2025-04-18 14:54:19,325 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\mixing.py', reloading
+2025-04-18 14:54:19,326 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\neighbor_degree.py', reloading
+2025-04-18 14:54:19,326 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\neighbor_degree.py', reloading
+2025-04-18 14:54:19,327 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\pairs.py', reloading
+2025-04-18 14:54:19,328 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\pairs.py', reloading
+2025-04-18 14:54:19,329 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,329 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,360 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\base_test.py', reloading
+2025-04-18 14:54:19,360 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\base_test.py', reloading
+2025-04-18 14:54:19,361 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_connectivity.py', reloading
+2025-04-18 14:54:19,362 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_connectivity.py', reloading
+2025-04-18 14:54:19,362 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_correlation.py', reloading
+2025-04-18 14:54:19,363 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_correlation.py', reloading
+2025-04-18 14:54:19,363 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_mixing.py', reloading
+2025-04-18 14:54:19,364 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_mixing.py', reloading
+2025-04-18 14:54:19,365 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_neighbor_degree.py', reloading
+2025-04-18 14:54:19,366 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_neighbor_degree.py', reloading
+2025-04-18 14:54:19,366 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_pairs.py', reloading
+2025-04-18 14:54:19,367 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\assortativity\\tests\\test_pairs.py', reloading
+2025-04-18 14:54:19,367 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\asteroidal.py', reloading
+2025-04-18 14:54:19,368 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\asteroidal.py', reloading
+2025-04-18 14:54:19,369 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\__init__.py', reloading
+2025-04-18 14:54:19,370 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\__init__.py', reloading
+2025-04-18 14:54:19,402 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\basic.py', reloading
+2025-04-18 14:54:19,403 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\basic.py', reloading
+2025-04-18 14:54:19,403 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\centrality.py', reloading
+2025-04-18 14:54:19,404 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\centrality.py', reloading
+2025-04-18 14:54:19,405 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\cluster.py', reloading
+2025-04-18 14:54:19,405 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\cluster.py', reloading
+2025-04-18 14:54:19,406 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\covering.py', reloading
+2025-04-18 14:54:19,407 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\covering.py', reloading
+2025-04-18 14:54:19,408 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\edgelist.py', reloading
+2025-04-18 14:54:19,408 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\edgelist.py', reloading
+2025-04-18 14:54:19,409 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\extendability.py', reloading
+2025-04-18 14:54:19,410 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\extendability.py', reloading
+2025-04-18 14:54:19,410 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\generators.py', reloading
+2025-04-18 14:54:19,411 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\generators.py', reloading
+2025-04-18 14:54:19,412 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\matching.py', reloading
+2025-04-18 14:54:19,412 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\matching.py', reloading
+2025-04-18 14:54:19,413 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\matrix.py', reloading
+2025-04-18 14:54:19,427 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\matrix.py', reloading
+2025-04-18 14:54:19,427 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\projection.py', reloading
+2025-04-18 14:54:19,428 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\projection.py', reloading
+2025-04-18 14:54:19,429 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\redundancy.py', reloading
+2025-04-18 14:54:19,429 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\redundancy.py', reloading
+2025-04-18 14:54:19,430 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\spectral.py', reloading
+2025-04-18 14:54:19,431 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\spectral.py', reloading
+2025-04-18 14:54:19,431 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,432 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\__init__.py', reloading
+2025-04-18 14:54:19,508 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_basic.py', reloading
+2025-04-18 14:54:19,510 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_basic.py', reloading
+2025-04-18 14:54:19,511 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_centrality.py', reloading
+2025-04-18 14:54:19,512 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_centrality.py', reloading
+2025-04-18 14:54:19,512 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_cluster.py', reloading
+2025-04-18 14:54:19,513 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_cluster.py', reloading
+2025-04-18 14:54:19,514 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_covering.py', reloading
+2025-04-18 14:54:19,515 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_covering.py', reloading
+2025-04-18 14:54:19,515 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_edgelist.py', reloading
+2025-04-18 14:54:19,516 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_edgelist.py', reloading
+2025-04-18 14:54:19,517 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_extendability.py', reloading
+2025-04-18 14:54:19,518 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_extendability.py', reloading
+2025-04-18 14:54:19,518 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_generators.py', reloading
+2025-04-18 14:54:19,519 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_generators.py', reloading
+2025-04-18 14:54:19,520 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_matching.py', reloading
+2025-04-18 14:54:19,520 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_matching.py', reloading
+2025-04-18 14:54:19,521 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_matrix.py', reloading
+2025-04-18 14:54:19,522 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_matrix.py', reloading
+2025-04-18 14:54:19,523 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_project.py', reloading
+2025-04-18 14:54:19,523 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_project.py', reloading
+2025-04-18 14:54:19,524 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_redundancy.py', reloading
+2025-04-18 14:54:19,524 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_redundancy.py', reloading
+2025-04-18 14:54:19,525 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_spectral_bipartivity.py', reloading
+2025-04-18 14:54:19,526 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bipartite\\tests\\test_spectral_bipartivity.py', reloading
+2025-04-18 14:54:19,527 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\boundary.py', reloading
+2025-04-18 14:54:19,528 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\boundary.py', reloading
+2025-04-18 14:54:19,528 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bridges.py', reloading
+2025-04-18 14:54:19,530 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\bridges.py', reloading
+2025-04-18 14:54:19,531 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\broadcasting.py', reloading
+2025-04-18 14:54:19,531 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\broadcasting.py', reloading
+2025-04-18 14:54:19,532 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\centrality\\__init__.py', reloading
+2025-04-18 14:54:19,533 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\networkx\\algorithms\\centrality\\__init__.py', reloading
+2025-04-18 14:54:19,577 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\__init__.py', reloading
+2025-04-18 14:54:19,578 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\version.py', reloading
+2025-04-18 14:54:19,579 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\package_data.py', reloading
+2025-04-18 14:54:19,579 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\compat.py', reloading
+2025-04-18 14:54:19,581 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\__main__.py', reloading
+2025-04-18 14:54:19,581 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\idna\\codec.py', reloading
+2025-04-18 14:54:19,581 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\legacy.py', reloading
+2025-04-18 14:54:19,581 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cd.py', reloading
+2025-04-18 14:54:19,584 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\charset_normalizer\\cli\\__main__.py', reloading
+2025-04-18 14:54:20,278 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 14:54:26,025 INFO: Starting Flask application
+2025-04-18 14:54:26,030 WARNING:  * Debugger is active!
+2025-04-18 14:54:26,037 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 14:54:26,061 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_contains.py', reloading
+2025-04-18 14:54:26,066 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_fancysets.py', reloading
+2025-04-18 14:54:26,067 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_fancysets.py', reloading
+2025-04-18 14:54:26,069 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_ordinals.py', reloading
+2025-04-18 14:54:26,071 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_ordinals.py', reloading
+2025-04-18 14:54:26,074 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_powerset.py', reloading
+2025-04-18 14:54:26,076 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_powerset.py', reloading
+2025-04-18 14:54:26,078 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_setexpr.py', reloading
+2025-04-18 14:54:26,101 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_setexpr.py', reloading
+2025-04-18 14:54:26,103 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_sets.py', reloading
+2025-04-18 14:54:26,117 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\sets\\tests\\test_sets.py', reloading
+2025-04-18 14:54:26,119 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\__init__.py', reloading
+2025-04-18 14:54:26,121 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\__init__.py', reloading
+2025-04-18 14:54:26,209 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\combsimp.py', reloading
+2025-04-18 14:54:26,210 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\combsimp.py', reloading
+2025-04-18 14:54:26,214 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\cse_main.py', reloading
+2025-04-18 14:54:26,214 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\cse_main.py', reloading
+2025-04-18 14:54:26,216 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\cse_opts.py', reloading
+2025-04-18 14:54:26,218 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\cse_opts.py', reloading
+2025-04-18 14:54:26,221 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\epathtools.py', reloading
+2025-04-18 14:54:26,222 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\epathtools.py', reloading
+2025-04-18 14:54:26,224 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\fu.py', reloading
+2025-04-18 14:54:26,226 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\fu.py', reloading
+2025-04-18 14:54:26,227 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\gammasimp.py', reloading
+2025-04-18 14:54:26,229 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\gammasimp.py', reloading
+2025-04-18 14:54:26,230 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\hyperexpand.py', reloading
+2025-04-18 14:54:26,231 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\hyperexpand.py', reloading
+2025-04-18 14:54:26,233 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\hyperexpand_doc.py', reloading
+2025-04-18 14:54:26,234 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\hyperexpand_doc.py', reloading
+2025-04-18 14:54:26,236 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\hyperexpand_doc.py', reloading
+2025-04-18 14:54:26,238 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\powsimp.py', reloading
+2025-04-18 14:54:26,238 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\powsimp.py', reloading
+2025-04-18 14:54:26,240 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\radsimp.py', reloading
+2025-04-18 14:54:26,241 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\radsimp.py', reloading
+2025-04-18 14:54:26,243 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\ratsimp.py', reloading
+2025-04-18 14:54:26,245 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\ratsimp.py', reloading
+2025-04-18 14:54:26,247 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\simplify.py', reloading
+2025-04-18 14:54:26,248 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\simplify.py', reloading
+2025-04-18 14:54:26,249 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\sqrtdenest.py', reloading
+2025-04-18 14:54:26,250 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\sqrtdenest.py', reloading
+2025-04-18 14:54:26,253 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,254 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,311 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_combsimp.py', reloading
+2025-04-18 14:54:26,313 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_combsimp.py', reloading
+2025-04-18 14:54:26,315 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_cse.py', reloading
+2025-04-18 14:54:26,317 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_cse.py', reloading
+2025-04-18 14:54:26,319 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_epathtools.py', reloading
+2025-04-18 14:54:26,320 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_epathtools.py', reloading
+2025-04-18 14:54:26,322 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_fu.py', reloading
+2025-04-18 14:54:26,323 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_fu.py', reloading
+2025-04-18 14:54:26,325 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_function.py', reloading
+2025-04-18 14:54:26,327 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_function.py', reloading
+2025-04-18 14:54:26,329 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_gammasimp.py', reloading
+2025-04-18 14:54:26,330 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_gammasimp.py', reloading
+2025-04-18 14:54:26,332 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_hyperexpand.py', reloading
+2025-04-18 14:54:26,334 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_hyperexpand.py', reloading
+2025-04-18 14:54:26,336 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_powsimp.py', reloading
+2025-04-18 14:54:26,338 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_powsimp.py', reloading
+2025-04-18 14:54:26,340 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_radsimp.py', reloading
+2025-04-18 14:54:26,341 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_radsimp.py', reloading
+2025-04-18 14:54:26,343 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_ratsimp.py', reloading
+2025-04-18 14:54:26,344 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_ratsimp.py', reloading
+2025-04-18 14:54:26,346 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_rewrite.py', reloading
+2025-04-18 14:54:26,348 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_rewrite.py', reloading
+2025-04-18 14:54:26,350 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_simplify.py', reloading
+2025-04-18 14:54:26,351 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_simplify.py', reloading
+2025-04-18 14:54:26,353 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_sqrtdenest.py', reloading
+2025-04-18 14:54:26,354 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_sqrtdenest.py', reloading
+2025-04-18 14:54:26,356 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_trigsimp.py', reloading
+2025-04-18 14:54:26,358 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\tests\\test_trigsimp.py', reloading
+2025-04-18 14:54:26,360 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\traversaltools.py', reloading
+2025-04-18 14:54:26,362 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\traversaltools.py', reloading
+2025-04-18 14:54:26,364 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\trigsimp.py', reloading
+2025-04-18 14:54:26,365 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\simplify\\trigsimp.py', reloading
+2025-04-18 14:54:26,368 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\__init__.py', reloading
+2025-04-18 14:54:26,369 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\__init__.py', reloading
+2025-04-18 14:54:26,435 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\benchmarks\\__init__.py', reloading
+2025-04-18 14:54:26,437 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\benchmarks\\__init__.py', reloading
+2025-04-18 14:54:26,445 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\benchmarks\\bench_solvers.py', reloading
+2025-04-18 14:54:26,447 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\benchmarks\\bench_solvers.py', reloading
+2025-04-18 14:54:26,450 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\bivariate.py', reloading
+2025-04-18 14:54:26,451 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\bivariate.py', reloading
+2025-04-18 14:54:26,452 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\decompogen.py', reloading
+2025-04-18 14:54:26,453 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\decompogen.py', reloading
+2025-04-18 14:54:26,455 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\deutils.py', reloading
+2025-04-18 14:54:26,457 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\deutils.py', reloading
+2025-04-18 14:54:26,459 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\__init__.py', reloading
+2025-04-18 14:54:26,460 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\__init__.py', reloading
+2025-04-18 14:54:26,472 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\diophantine.py', reloading
+2025-04-18 14:54:26,473 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\diophantine.py', reloading
+2025-04-18 14:54:26,476 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,477 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,486 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\tests\\test_diophantine.py', reloading
+2025-04-18 14:54:26,487 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\diophantine\\tests\\test_diophantine.py', reloading
+2025-04-18 14:54:26,489 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\inequalities.py', reloading
+2025-04-18 14:54:26,491 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\inequalities.py', reloading
+2025-04-18 14:54:26,494 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\__init__.py', reloading
+2025-04-18 14:54:26,495 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\__init__.py', reloading
+2025-04-18 14:54:26,535 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\hypergeometric.py', reloading
+2025-04-18 14:54:26,537 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\hypergeometric.py', reloading
+2025-04-18 14:54:26,540 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\lie_group.py', reloading
+2025-04-18 14:54:26,541 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\lie_group.py', reloading
+2025-04-18 14:54:26,544 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\nonhomogeneous.py', reloading
+2025-04-18 14:54:26,544 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\nonhomogeneous.py', reloading
+2025-04-18 14:54:26,547 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\ode.py', reloading
+2025-04-18 14:54:26,549 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\ode.py', reloading
+2025-04-18 14:54:26,550 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\riccati.py', reloading
+2025-04-18 14:54:26,571 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\riccati.py', reloading
+2025-04-18 14:54:26,573 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\single.py', reloading
+2025-04-18 14:54:26,574 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\single.py', reloading
+2025-04-18 14:54:26,577 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\subscheck.py', reloading
+2025-04-18 14:54:26,579 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\subscheck.py', reloading
+2025-04-18 14:54:26,581 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\systems.py', reloading
+2025-04-18 14:54:26,583 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\systems.py', reloading
+2025-04-18 14:54:26,586 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,586 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,618 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_lie_group.py', reloading
+2025-04-18 14:54:26,620 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_lie_group.py', reloading
+2025-04-18 14:54:26,622 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_ode.py', reloading
+2025-04-18 14:54:26,623 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_ode.py', reloading
+2025-04-18 14:54:26,626 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_riccati.py', reloading
+2025-04-18 14:54:26,627 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_riccati.py', reloading
+2025-04-18 14:54:26,630 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_single.py', reloading
+2025-04-18 14:54:26,631 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_single.py', reloading
+2025-04-18 14:54:26,634 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_subscheck.py', reloading
+2025-04-18 14:54:26,635 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_subscheck.py', reloading
+2025-04-18 14:54:26,637 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_systems.py', reloading
+2025-04-18 14:54:26,639 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\ode\\tests\\test_systems.py', reloading
+2025-04-18 14:54:26,641 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\pde.py', reloading
+2025-04-18 14:54:26,642 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\pde.py', reloading
+2025-04-18 14:54:26,644 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\polysys.py', reloading
+2025-04-18 14:54:26,645 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\polysys.py', reloading
+2025-04-18 14:54:26,648 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\recurr.py', reloading
+2025-04-18 14:54:26,649 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\recurr.py', reloading
+2025-04-18 14:54:26,652 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\simplex.py', reloading
+2025-04-18 14:54:26,653 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\simplex.py', reloading
+2025-04-18 14:54:26,655 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\solvers.py', reloading
+2025-04-18 14:54:26,656 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\solvers.py', reloading
+2025-04-18 14:54:26,658 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\solveset.py', reloading
+2025-04-18 14:54:26,659 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\solveset.py', reloading
+2025-04-18 14:54:26,661 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,662 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,703 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_constantsimp.py', reloading
+2025-04-18 14:54:26,704 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_constantsimp.py', reloading
+2025-04-18 14:54:26,707 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_decompogen.py', reloading
+2025-04-18 14:54:26,709 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_decompogen.py', reloading
+2025-04-18 14:54:26,712 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_inequalities.py', reloading
+2025-04-18 14:54:26,713 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_inequalities.py', reloading
+2025-04-18 14:54:26,715 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_numeric.py', reloading
+2025-04-18 14:54:26,717 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_numeric.py', reloading
+2025-04-18 14:54:26,720 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_pde.py', reloading
+2025-04-18 14:54:26,721 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_pde.py', reloading
+2025-04-18 14:54:26,724 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_polysys.py', reloading
+2025-04-18 14:54:26,726 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_polysys.py', reloading
+2025-04-18 14:54:26,730 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_recurr.py', reloading
+2025-04-18 14:54:26,731 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_recurr.py', reloading
+2025-04-18 14:54:26,734 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_simplex.py', reloading
+2025-04-18 14:54:26,735 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_simplex.py', reloading
+2025-04-18 14:54:26,737 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_solvers.py', reloading
+2025-04-18 14:54:26,739 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_solvers.py', reloading
+2025-04-18 14:54:26,742 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_solveset.py', reloading
+2025-04-18 14:54:26,743 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\solvers\\tests\\test_solveset.py', reloading
+2025-04-18 14:54:26,745 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\__init__.py', reloading
+2025-04-18 14:54:26,757 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\__init__.py', reloading
+2025-04-18 14:54:26,838 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\compound_rv.py', reloading
+2025-04-18 14:54:26,839 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\compound_rv.py', reloading
+2025-04-18 14:54:26,841 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\crv.py', reloading
+2025-04-18 14:54:26,842 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\crv.py', reloading
+2025-04-18 14:54:26,845 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\crv_types.py', reloading
+2025-04-18 14:54:26,845 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\crv_types.py', reloading
+2025-04-18 14:54:26,848 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\drv.py', reloading
+2025-04-18 14:54:26,849 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\drv.py', reloading
+2025-04-18 14:54:26,852 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\drv_types.py', reloading
+2025-04-18 14:54:26,854 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\drv_types.py', reloading
+2025-04-18 14:54:26,856 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\error_prop.py', reloading
+2025-04-18 14:54:26,858 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\error_prop.py', reloading
+2025-04-18 14:54:26,860 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\frv.py', reloading
+2025-04-18 14:54:26,861 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\frv.py', reloading
+2025-04-18 14:54:26,864 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\frv_types.py', reloading
+2025-04-18 14:54:26,865 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\frv_types.py', reloading
+2025-04-18 14:54:26,868 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\joint_rv.py', reloading
+2025-04-18 14:54:26,869 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\joint_rv.py', reloading
+2025-04-18 14:54:26,872 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\joint_rv_types.py', reloading
+2025-04-18 14:54:26,873 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\joint_rv_types.py', reloading
+2025-04-18 14:54:26,875 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\matrix_distributions.py', reloading
+2025-04-18 14:54:26,876 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\matrix_distributions.py', reloading
+2025-04-18 14:54:26,879 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\random_matrix.py', reloading
+2025-04-18 14:54:26,880 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\random_matrix.py', reloading
+2025-04-18 14:54:26,881 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\random_matrix_models.py', reloading
+2025-04-18 14:54:26,883 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\random_matrix_models.py', reloading
+2025-04-18 14:54:26,884 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\rv.py', reloading
+2025-04-18 14:54:26,886 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\rv.py', reloading
+2025-04-18 14:54:26,888 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\rv_interface.py', reloading
+2025-04-18 14:54:26,890 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\rv_interface.py', reloading
+2025-04-18 14:54:26,892 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\__init__.py', reloading
+2025-04-18 14:54:26,894 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\__init__.py', reloading
+2025-04-18 14:54:26,912 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_numpy.py', reloading
+2025-04-18 14:54:26,913 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_numpy.py', reloading
+2025-04-18 14:54:26,916 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_pymc.py', reloading
+2025-04-18 14:54:26,917 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_pymc.py', reloading
+2025-04-18 14:54:26,919 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_scipy.py', reloading
+2025-04-18 14:54:26,920 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\sample_scipy.py', reloading
+2025-04-18 14:54:26,922 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,923 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,940 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_continuous_rv.py', reloading
+2025-04-18 14:54:26,941 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_continuous_rv.py', reloading
+2025-04-18 14:54:26,944 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_discrete_rv.py', reloading
+2025-04-18 14:54:26,960 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_discrete_rv.py', reloading
+2025-04-18 14:54:26,963 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_finite_rv.py', reloading
+2025-04-18 14:54:26,965 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\sampling\\tests\\test_sample_finite_rv.py', reloading
+2025-04-18 14:54:26,968 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\stochastic_process.py', reloading
+2025-04-18 14:54:26,969 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\stochastic_process.py', reloading
+2025-04-18 14:54:26,971 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\stochastic_process_types.py', reloading
+2025-04-18 14:54:26,973 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\stochastic_process_types.py', reloading
+2025-04-18 14:54:26,975 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\symbolic_multivariate_probability.py', reloading
+2025-04-18 14:54:26,976 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\symbolic_multivariate_probability.py', reloading
+2025-04-18 14:54:26,978 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\symbolic_probability.py', reloading
+2025-04-18 14:54:26,980 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\symbolic_probability.py', reloading
+2025-04-18 14:54:26,982 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\__init__.py', reloading
+2025-04-18 14:54:26,983 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\__init__.py', reloading
+2025-04-18 14:54:27,045 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_compound_rv.py', reloading
+2025-04-18 14:54:27,050 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_compound_rv.py', reloading
+2025-04-18 14:54:27,052 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_continuous_rv.py', reloading
+2025-04-18 14:54:27,053 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_continuous_rv.py', reloading
+2025-04-18 14:54:27,056 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_discrete_rv.py', reloading
+2025-04-18 14:54:27,057 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_discrete_rv.py', reloading
+2025-04-18 14:54:27,060 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_error_prop.py', reloading
+2025-04-18 14:54:27,062 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_error_prop.py', reloading
+2025-04-18 14:54:27,064 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_finite_rv.py', reloading
+2025-04-18 14:54:27,065 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\vv\\Lib\\site-packages\\sympy\\stats\\tests\\test_finite_rv.py', reloading
+2025-04-18 14:54:27,632 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 10:06:15,110 INFO: Starting Flask application
+2025-04-18 10:06:15,137 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 10:06:15,138 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 10:06:15,147 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 10:06:23,816 INFO: Starting Flask application
+2025-04-18 10:06:23,828 WARNING:  * Debugger is active!
+2025-04-18 10:06:23,841 INFO:  * Debugger PIN: 104-915-250
+2025-04-18 15:59:31,990 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 15:59:31,993 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 15:59:32,514 INFO: Starting Flask application
+2025-04-18 15:59:32,535 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 15:59:32,535 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 15:59:32,546 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 15:59:39,527 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 15:59:39,528 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 15:59:40,085 INFO: Starting Flask application
+2025-04-18 15:59:40,095 WARNING:  * Debugger is active!
+2025-04-18 15:59:40,104 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:00:00,576 ERROR: 127.0.0.1 - - [18/Apr/2025 16:00:00] code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06')
+2025-04-18 16:00:00,577 INFO: 127.0.0.1 - - [18/Apr/2025 16:00:00] "[31m[1m\x16\x03\x01\x06ò\x01\x00\x06î\x03\x03l\x89PñÛïº\x0e\x97f~bL\x0d¨æ\x9eÖ\x07%Ò$\x8c¥ßì)AW¡è\x92 \x16^Î\x1cÑ2¯%!-_1Lõ³î\x12×\x84g\x81\x94"R[h\x91Cß\x18q×\x00 \x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x85[0m" 400 -
+2025-04-18 16:00:00,839 ERROR: 127.0.0.1 - - [18/Apr/2025 16:00:00] code 400, message Bad request version ('ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06¥úú\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00')
+2025-04-18 16:00:00,839 INFO: 127.0.0.1 - - [18/Apr/2025 16:00:00] "[31m[1m\x16\x03\x01\x07\x12\x01\x00\x07\x0e\x03\x03=o\x02\x8dq\x1aU\x8a±zÇ\x19îx7=T2³\x0cÚ\x0d,IY2[ìN{ÄR \x0d\x84HÄ\x13WÆ#p\x98\x9e\x8a\x9f·½ã\x00/Pz\x99­\x01Ð­¬àï\x03Ï[w\x00 ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06¥úú\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00[0m" 400 -
+2025-04-18 16:00:00,884 ERROR: 127.0.0.1 - - [18/Apr/2025 16:00:00] code 400, message Bad request version ('e©\x89\x9fÏà¡jqÍôÛ\x87')
+2025-04-18 16:00:00,885 INFO: 127.0.0.1 - - [18/Apr/2025 16:00:00] "[31m[1m\x16\x03\x01\x06²\x01\x00\x06®\x03\x03\x15Qj¢D$\x16T(,Õ\x01úø­\x16\x0f\x1de{\x8a¶\x10¹\x0dLÐ#ÐzlÀ êB|F\x03¤\x95\x89»~1\x989ß\x98µ,Céä`Ì°ô}\x05\x93äæ@¯k\x00 jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Ezz\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x003\x04ï\x04íÚÚ\x00\x01\x00\x11ì\x04Àz<\x9cWÕ¹?<\x84Ù\x05q"\x05\\BJ\x83»E\x1e?º\x83t\x93\x19ª§¹¹|\x19ºaK±°\x0d<¦#éÉoíÈ\x0c`\x00\x0d6\x09Ð-w\x14»â\x02\x04\x85\x18ZzÍ#\x95f4à\x851ç´Û\x07\x8dÿ¨\x13ê\x84\x12+y\x19q{\x9a&·\x06v\x83D\x05µ\x88§6½Ï\x88B\x8c&¿\x82¼d¾tY\x84\\i\x04älyð\x01Ôø·­y\x9c\x04\x94\x7fhR¢³t}\x04õZÄ#\x05\x0fô$=·Å=\x96:ã³Å\x88ä\x01\x86\x88´\x9bá1ð4J d\x0b\x8fÇ\x94ãPÅwÈ¯\x16°2N\x09x(Ó\x1ao\x0068(\x9b\x8cø\x8dQATÚä 3wI\x85\x00ÀxÌ\x881U.ôD!}ù»g\x07\x8dyÂ\x93ÜÂ&3Õ»Q\x05"ç\x9c9$ù\x81O(Áº@2F\x1bÏ¸Y$J\x08#\x9aL\x03Á ©,K^B7<~4\x82p»D?l¿Y\x98\x95°F}Äqnr×Lõc¥O´U¡¤\x89%Çd#S\x86õ\x95X\x81ÂH\x16º\x1e¹8s³0¿s¹@\x93BL|ñaæ\x8cG°\x18\x05\x88ë½\x8bô@NS=L«·úÑ\x01\x83\x09\x0bf\x89Bj\x1c,^\x93ÃK1É®bCÇÕ\x06\x96ëuÎ¡\x14õÇD\x97à£\x95DVI,DQb\x81\x91U.}T\x90\x921\x90¸\x04"Ç°\x8c\x93\x94gÎãu\x83lEÝ*Í\x9eÈ3\x0bi#\x0c\x88+Ø÷\x88SpGKÑµ\x022\x14\x8b"¤!B\x9b\x1cð6\x99\x1c\x88èU/;\x98\x85wÒ\x9eïô\x8dJLGÿª"é÷È\x15±3t¢ bW®\x19²K\x01\x86b§H)\x8a\x88\x1fÓ\x1a[æS¾~\x88\x11\x0d\x91ÏÞ¶\x8cÑ¦s\x09J\x1c\x84ãaXG\x00Hæ\x1fØ\x11Å8gjë¤t¥\x04~É÷V\x8b\x06xt\x91g\x95Cdÿt^\x98\x8c\x9a¦6\x9e)¨Å\\pyâ\x14j\x8a\x13½©;j\x10äY®F°¥ªU"ªL¾1¾³[\x9bx3¨b\x89È\x82\x09N^\x99n4©\x91])\x88%#d0µ\x03HP|¨+%R2\x96^v\x1e\x90×¯ç\x820\x1a\x09e©\x89\x9fÏà¡jqÍôÛ\x87[0m" 400 -
+2025-04-18 16:00:01,145 ERROR: 127.0.0.1 - - [18/Apr/2025 16:00:01] code 400, message Bad request version ('hìûÑ¿ÚË\x99"\x15ÚV')
+2025-04-18 16:00:01,146 INFO: 127.0.0.1 - - [18/Apr/2025 16:00:01] "[31m[1m\x16\x03\x01\x06ò\x01\x00\x06î\x03\x03E@MÖ7\x09?=>êÞ²±ìð\x17é\x9e%³ AÇàº\x816ó\x88¡\x02¹ Ý\x84iP4-[´×\x97Ëo©UIX\x9b+\x93ÔÍËÃH\x08Ú\x1e\x98\x08¸µí\x00 ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x85ºº\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x12\x00\x00\x00#\x00\x00þ\x0d\x00ú\x00\x00\x01\x00\x01d\x00 \x07\x8d[F\x8dú\x85D¬:dDnâ\x0dô@ùàÃé¾\x9aèÅNv*\x9cÒ\x95f\x00Ð/\x88-3,\x10»C\x86×V\\\x85\x7f:'Ì×{ÏÝ\x0fºù\x9eN\x86î*÷\x96ò8\x89VðÑûµì\x0dhìûÑ¿ÚË\x99"\x15ÚV[0m" 400 -
+2025-04-18 16:03:12,378 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:03:12,379 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:03:12,850 INFO: Starting Flask application
+2025-04-18 16:03:12,859 WARNING:  * Debugger is active!
+2025-04-18 16:03:12,865 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:06:05,897 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:06:05,899 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:06:38,623 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:06:38,624 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:06:39,082 INFO: Starting Flask application
+2025-04-18 16:06:39,101 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 16:06:39,101 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 16:06:39,114 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 16:06:48,441 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:06:48,443 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:06:49,015 INFO: Starting Flask application
+2025-04-18 16:06:49,024 WARNING:  * Debugger is active!
+2025-04-18 16:06:49,032 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:11:39,966 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:11:39,967 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:11:40,330 INFO: Starting Flask application
+2025-04-18 16:11:40,349 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 16:11:40,349 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 16:11:40,357 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 16:11:46,977 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:11:46,977 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:11:47,365 INFO: Starting Flask application
+2025-04-18 16:11:47,374 WARNING:  * Debugger is active!
+2025-04-18 16:11:47,380 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:13:27,800 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:13:27,801 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:13:28,179 INFO: Starting Flask application
+2025-04-18 16:13:28,201 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 16:13:28,201 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 16:13:28,210 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 16:13:35,643 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:13:35,645 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:13:36,067 INFO: Starting Flask application
+2025-04-18 16:13:36,081 WARNING:  * Debugger is active!
+2025-04-18 16:13:36,087 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:35:19,921 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\__init__.py', reloading
+2025-04-18 16:35:19,922 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\__init__.py', reloading
+2025-04-18 16:35:20,055 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\executing.py', reloading
+2025-04-18 16:35:20,056 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\executing.py', reloading
+2025-04-18 16:35:20,057 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\version.py', reloading
+2025-04-18 16:35:20,057 INFO:  * Detected change in 'C:\\Users\\hariv\\anaconda3\\envs\\hero\\Lib\\site-packages\\executing\\version.py', reloading
+2025-04-18 16:35:21,752 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 16:35:30,188 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:35:30,190 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:35:31,133 INFO: Starting Flask application
+2025-04-18 16:35:31,162 WARNING:  * Debugger is active!
+2025-04-18 16:35:31,176 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:40:12,963 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:40:12,964 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:40:13,326 INFO: Starting Flask application
+2025-04-18 16:40:13,344 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.106:5000
+2025-04-18 16:40:13,344 INFO: [33mPress CTRL+C to quit[0m
+2025-04-18 16:40:13,354 INFO:  * Restarting with watchdog (windowsapi)
+2025-04-18 16:40:20,144 DEBUG: load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-04-18 16:40:20,145 DEBUG: load_verify_locations cafile='C:\\Users\\hariv\\AppData\\Roaming\\Python\\Python312\\site-packages\\certifi\\cacert.pem'
+2025-04-18 16:40:20,544 INFO: Starting Flask application
+2025-04-18 16:40:20,557 WARNING:  * Debugger is active!
+2025-04-18 16:40:20,562 INFO:  * Debugger PIN: 108-844-245
+2025-04-18 16:40:35,827 INFO:  * Detected change in 'C:\\Kmit\\hero\\public\\app.py', reloading
+2025-04-18 16:40:35,827 INFO:  * Detected change in 'C:\\Kmit\\hero\\public\\app.py', reloading
+2025-04-18 16:40:35,828 INFO:  * Detected change in 'C:\\Kmit\\hero\\public\\app.py', reloading
+2025-04-18 16:40:37,071 INFO:  * Restarting with watchdog (windowsapi)
