@@ -49,13 +49,11 @@ function App() {
         <Route path="/" element={<CarouselPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/result" element={<ResultPage />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/contact" element={<ContactSection />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />
-        <Route path="/result1" element={<ResultPage1 />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/notification" element={<NotificationComponent />} />
       </Routes>
