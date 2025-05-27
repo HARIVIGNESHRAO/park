@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import CarouselPage from "./components/CarouselPage/CarouselPage";
 import Home from "./components/home/home";
 import Login from "./components/login/login";
-import ResultPage from "./components/result/result";
 import Admin from "../src/components/admin/admin";
 import Dashboard from "./components/dashboard/dashboard";
 import ContactSection from "./components/contact/contact";
 import AboutPage from "./components/about/about";
 import User from "./components/user/user";
-import ResultPage1 from "./components/result1/result1";
 import ProfilePage from "./components/Profile/ProfilePage";
 import NotificationComponent from "./components/notifications/notification";
 
