@@ -51,6 +51,10 @@ const Admin = () => {
   const analyserRef = useRef(null)
   const animationFrameRef = useRef(null)
   const [isRescheduleModalOpen, setIsRescheduleModalOpen] = useState(false)
+    const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+const [messageContent, setMessageContent] = useState("");
+const [messageRecipientUsername, setMessageRecipientUsername] = useState(null);
+const [isTypingCustom, setIsTypingCustom] = useState(false);
   const [rescheduleData, setRescheduleData] = useState({
     userId: null,
     appointmentIndex: null,
@@ -117,7 +121,40 @@ const Admin = () => {
       fetchUsers()
     }
   }, [username, navigate])
+const sendMessage = async () => {
+  if (!messageContent.trim()) {
+    alert("Please enter a message.");
+    return;
+  }
 
+  try {
+    await axios.post(
+      "http://localhost:5001/api/messages",
+      {
+        username: messageRecipientUsername,
+        content: messageContent,
+      },
+      { withCredentials: true }
+    );
+    alert("Message sent successfully!");
+    setMessageContent("");
+    setIsMessageModalOpen(false);
+    setMessageRecipientUsername(null);
+  } catch (err) {
+    const errorMessage = err.response?.data?.error || err.message;
+    alert(`Failed to send message: ${errorMessage}`);
+  }
+};
+
+// Add this function to open the message modal
+const openMessageModal = (userId) => {
+  const user = users.find((u) => u._id === userId);
+  if (user) {
+    setMessageRecipientUsername(user.username);
+    setIsMessageModalOpen(true);
+    setContextMenu({ visible: false, x: 0, y: 0, userId: null });
+  }
+};
   const startRecordingQuestion = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
@@ -436,16 +473,6 @@ const Admin = () => {
     try {
       setIsLoading(true)
       setSessionError("")
-
-      await axios.post(
-        "http://localhost:5001/api/session/save_analysis",
-        {
-          userId: conversationUser._id,
-          questions: responses.map((r) => r.question),
-          combinedAnalysis: combinedAnalysis,
-        },
-        { withCredentials: true }
-      )
 
       const response = await axios.post(
         "http://localhost:5000/generate_pdf",
@@ -1223,81 +1250,82 @@ const openModal = async (userId, type) => {
 
       {viewMode === "session" && conversationUser && (
         <div className="session-screen flex flex-row gap-12 p-6 min-h-screen">
-          <div className="w-1/2 flex flex-col">
-            <button
-              className="back-btn mb-4"
-              onClick={() => {
-                setConversationUser(null)
-                setIsSessionActive(false)
-                setViewMode("appointments")
-              }}
-            >
-              Back to Appointments
-            </button>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Session with {conversationUser.username}</h2>
-            <div className="conversation-container bg-gray-50 p-6 rounded-lg shadow-lg">
+    <div className="w-1/2 flex flex-col">
+      <button
+        className="back-btn mb-4"
+        onClick={() => {
+          setConversationUser(null);
+          setIsSessionActive(false);
+          setViewMode("appointments");
+        }}
+      >
+        Back to Appointments
+      </button>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Session with {conversationUser.username}</h2>
+      <div className="conversation-container bg-gray-50 p-6 rounded-lg shadow-lg">
+        <div className="mb-4">
+          <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-1">
+            Select Predefined Question
+          </label>
+          <select
+            id="question"
+            value={isTypingCustom ? "custom" : selectedQuestion}
+            onChange={(e) => {
+              if (e.target.value === "custom") {
+                setIsTypingCustom(true);
+                setSelectedQuestion("");
+                setCustomQuestion("");
+              } else {
+                setIsTypingCustom(false);
+                setSelectedQuestion(e.target.value);
+                setCustomQuestion(e.target.value);
+              }
+            }}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            disabled={isRecording || isLoading}
+          >
+            <option value="">Select a question</option>
+            {questions.map((q, index) => (
+              <option key={index} value={q}>
+                {q}
+              </option>
+            ))}
+            <option value="custom">Type a Custom Question</option>
+          </select>
+          {isTypingCustom && (
               <div className="mb-4">
-                <label htmlFor="custom-question" className="block text-sm font-medium text-gray-700 mb-1">
-                  Type Custom Question
-                </label>
                 <input
-                  id="custom-question"
-                  type="text"
-                  value={customQuestion}
-                  onChange={(e) => {
-                    setCustomQuestion(e.target.value)
-                    setSelectedQuestion(e.target.value)
-                  }}
-                  className="question-input"
-                  placeholder="Enter your custom question"
-                  disabled={isRecording || isLoading}
-                />
+              type="text"
+              value={customQuestion}
+              onChange={(e) => {
+                setCustomQuestion(e.target.value);
+                setSelectedQuestion(e.target.value);
+              }}
+              className="mt-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="Type your custom question here"
+              disabled={isRecording || isLoading}
+            />
               </div>
-              <div className="mb-4">
-                <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-1">
-                  Or Select Predefined Question
-                </label>
-                <select
-                  id="question"
-                  value={selectedQuestion}
-                  onChange={(e) => {
-                    setSelectedQuestion(e.target.value)
-                    setCustomQuestion(e.target.value)
-                  }}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  disabled={isRecording || isLoading}
-                >
-                  <option value="">Select a question</option>
-                  {questions.map((q, index) => (
-                    <option key={index} value={q}>
-                      {q}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-4">
-                <button
-                  className="record-btn"
-                  onClick={isRecordingQuestion ? stopRecordingQuestion : startRecordingQuestion}
-                  disabled={isRecording || isLoading}
-                >
-                  {isRecordingQuestion ? "Stop Recording Question" : "Record Question"}
-                </button>
-              </div>
-              <div className="flex gap-4 my-4">
-                <button
-                  className="mic-btn"
-                  onClick={startSession}
-                  disabled={isSessionActive || (!selectedQuestion && !customQuestion)}
-                >
-                  Start Session
-                </button>
-                <button className="end-btn" onClick={endSession} disabled={!isSessionActive || responses.length === 0}>
-                  End Session
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
+        </div>
+        <div className="flex gap-4 my-4">
+          <button
+            className="mic-btn"
+            onClick={startSession}
+            disabled={isSessionActive || (!selectedQuestion && !customQuestion)}
+          >
+            Start Session
+          </button>
+          <button
+            className="end-btn"
+            onClick={endSession}
+            disabled={!isSessionActive || responses.length === 0}
+          >
+            End Session
+          </button>
+        </div>
+      </div>
+    </div>
 
           <div className="w-1/2 flex flex-col">
             {isSessionActive ? (
@@ -1507,13 +1535,14 @@ const openModal = async (userId, type) => {
         </div>
       )}
 
-      {contextMenu.visible && (
-        <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
-          <button onClick={() => viewUserDetails(contextMenu.userId)}>View Details</button>
-          <button onClick={exportSelectedToCSV}>Export Selected ({selectedUsers.length})</button>
-          <button onClick={bulkDeleteUsers}>Delete Selected ({selectedUsers.length})</button>
-        </div>
-      )}
+{contextMenu.visible && (
+  <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
+    <button onClick={() => viewUserDetails(contextMenu.userId)}>View Details</button>
+    <button onClick={exportSelectedToCSV}>Export Selected ({selectedUsers.length})</button>
+    <button onClick={bulkDeleteUsers}>Delete Selected ({selectedUsers.length})</button>
+    <button onClick={() => openMessageModal(contextMenu.userId)}>Message</button>
+  </div>
+)}
 
       {selectedAnalysis && (
         <div className="modal active" onClick={closeModal}>
@@ -1743,6 +1772,62 @@ const openModal = async (userId, type) => {
           </div>
         </div>
       )}
+        {isMessageModalOpen && (
+  <div className="modal active" onClick={() => setIsMessageModalOpen(false)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <button
+        className="modal-close"
+        onClick={() => setIsMessageModalOpen(false)}
+        title="Close"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <h2>Send Message</h2>
+      <div className="p-4">
+        <div className="mb-4">
+          <label htmlFor="message-content" className="block text-sm font-medium text-gray-700 mb-1">
+            Message
+          </label>
+          <textarea
+            id="message-content"
+            value={messageContent}
+            onChange={(e) => setMessageContent(e.target.value)}
+            className="w-full p-2 border rounded-md"
+            placeholder="Type your message here..."
+            rows="4"
+          />
+        </div>
+        <div className="flex justify-end gap-2 mt-4">
+          <button
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+            onClick={() => setIsMessageModalOpen(false)}
+          >
+            Cancel
+          </button>
+          <button
+            className="bg-primary text-white px-4 py-2 rounded"
+            onClick={sendMessage}
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   )
 }
