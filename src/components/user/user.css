@@ -159,7 +159,26 @@ border-bottom: 5px solid ;
   margin: 0.5rem 0 0;
   line-height: 1.4;
 }
+.download-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
 
+.download-btn:hover {
+  background-color: #45a049;
+}
+
+.download-btn:focus {
+  outline: 2px solid #4CAF50;
+  outline-offset: 2px;
+}
 /* Analyses section */
 .analyses-section {
   margin-top: 2.5rem;
