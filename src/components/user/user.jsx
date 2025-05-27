@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './user.css';
+import jsPDF from 'jspdf'; // Import jsPDF
 
 const User = () => {
   const [userData, setUserData] = useState(null);
@@ -20,7 +21,6 @@ const User = () => {
   const fetchUserData = async () => {
     setLoading(true);
     try {
-      // Fetch user data
       const userResponse = await fetch('http://localhost:5001/users/username', {
         credentials: 'include',
       });
@@ -33,7 +33,6 @@ const User = () => {
         throw new Error(userResult.message || 'Failed to fetch user data');
       }
 
-      // Fetch latest analysis
       try {
         const latestResponse = await fetch('http://localhost:5001/api/session/latest_analysis', {
           credentials: 'include',
@@ -43,12 +42,14 @@ const User = () => {
           setLatestAnalysis(null);
         } else {
           const latestResult = await latestResponse.json();
-          console.log('Latest analysis response:', latestResult); // Debug log
+          console.log('Latest analysis response:', latestResult);
           if (latestResult.analysis) {
             setLatestAnalysis({
               _id: latestResult.analysis._id || 'latest',
               combined_analysis: latestResult.analysis.combined_analysis,
               createdAt: latestResult.analysis.createdAt,
+              transcription: latestResult.analysis.transcription || '',
+              tags: latestResult.analysis.tags || [],
             });
           } else {
             console.warn('No valid latest analysis data found');
@@ -76,7 +77,6 @@ const User = () => {
 
   const handleDelete = async (analysisId, isLatest = false) => {
     if (!window.confirm('Are you sure you want to delete this analysis?')) return;
-console.log(isLatest);
     setIsDeleting(true);
     try {
       const url = isLatest
@@ -116,6 +116,121 @@ console.log(isLatest);
   const handleCopyId = (id) => {
     navigator.clipboard.writeText(id);
     toast.success('ID copied to clipboard');
+  };
+
+  const handleDownload = (analysis, isLatest = false) => {
+    const formattedText = isLatest
+      ? `Analysis Report
+=================
+ID: ${analysis._id}
+Timestamp: ${new Date(analysis.createdAt).toLocaleString()}
+Transcription: ${analysis.transcription || 'No transcription available'}
+Combined Analysis: ${analysis.combined_analysis || 'No analysis provided'}
+Tags: ${analysis.tags && analysis.tags.length > 0 ? analysis.tags.join(', ') : 'None'}
+=================`
+      : `Analysis Report
+=================
+ID: ${analysis._id}
+Timestamp: ${new Date(analysis.createdAt).toLocaleString()}
+Transcription: ${analysis.transcription || 'No transcription available'}
+Emotions Detected: ${analysis.analysis.Emotions && analysis.analysis.Emotions.length > 0 ? analysis.analysis.Emotions.join(', ') : 'None'}
+Reasons: ${analysis.analysis.Reasons || 'No reasons provided'}
+Suggestions:
+${analysis.analysis.Suggestions && analysis.analysis.Suggestions.length > 0 ? analysis.analysis.Suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n') : 'None'}
+Tags: ${analysis.tags && analysis.tags.length > 0 ? analysis.tags.join(', ') : 'None'}
+=================`;
+
+    const blob = new Blob([formattedText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `analysis_${analysis._id}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success('Analysis downloaded successfully');
+  };
+
+  const handleDownloadAllAsPDF = () => {
+    const doc = new jsPDF();
+    let yOffset = 10;
+
+    // Add user info at the top
+    doc.setFontSize(16);
+    doc.text('User Analysis Report', 10, yOffset);
+    yOffset += 10;
+    doc.setFontSize(12);
+    doc.text(`Username: ${userData.username}`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`Email: ${userData.email}`, 10, yOffset);
+    yOffset += 10;
+    doc.text(`User ID: ${userData._id}`, 10, yOffset);
+    yOffset += 10;
+    doc.text('====================================', 10, yOffset);
+    yOffset += 10;
+
+    // Add latest analysis if available and matches filters
+    if (isLatestAnalysisVisible && latestAnalysis) {
+      doc.setFontSize(14);
+      doc.text('Latest Analysis', 10, yOffset);
+      yOffset += 10;
+      doc.setFontSize(12);
+      doc.text(`ID: ${latestAnalysis._id}`, 10, yOffset);
+      yOffset += 7;
+      doc.text(`Timestamp: ${new Date(latestAnalysis.createdAt).toLocaleString()}`, 10, yOffset);
+      yOffset += 7;
+      doc.text(`Transcription: ${latestAnalysis.transcription || 'No transcription available'}`, 10, yOffset, { maxWidth: 190 });
+      yOffset += doc.getTextDimensions(latestAnalysis.transcription || 'No transcription available', { maxWidth: 190 }).h + 5;
+      doc.text(`Combined Analysis: ${latestAnalysis.combined_analysis || 'No analysis provided'}`, 10, yOffset, { maxWidth: 190 });
+      yOffset += doc.getTextDimensions(latestAnalysis.combined_analysis || 'No analysis provided', { maxWidth: 190 }).h + 5;
+      doc.text(`Tags: ${latestAnalysis.tags && latestAnalysis.tags.length > 0 ? latestAnalysis.tags.join(', ') : 'None'}`, 10, yOffset);
+      yOffset += 10;
+      doc.text('====================================', 10, yOffset);
+      yOffset += 10;
+    }
+
+    // Add historical analyses
+    doc.setFontSize(14);
+    doc.text('Historical Analyses', 10, yOffset);
+    yOffset += 10;
+
+    filteredAnalyses.forEach((analysis, index) => {
+      if (yOffset > 270) {
+        doc.addPage();
+        yOffset = 10;
+      }
+      doc.setFontSize(12);
+      doc.text(`Analysis ${index + 1}`, 10, yOffset);
+      yOffset += 7;
+      doc.text(`ID: ${analysis._id}`, 10, yOffset);
+      yOffset += 7;
+      doc.text(`Timestamp: ${new Date(analysis.createdAt).toLocaleString()}`, 10, yOffset);
+      yOffset += 7;
+      doc.text(`Transcription: ${analysis.transcription || 'No transcription available'}`, 10, yOffset, { maxWidth: 190 });
+      yOffset += doc.getTextDimensions(analysis.transcription || 'No transcription available', { maxWidth: 190 }).h + 5;
+      doc.text(`Emotions Detected: ${analysis.analysis.Emotions && analysis.analysis.Emotions.length > 0 ? analysis.analysis.Emotions.join(', ') : 'None'}`, 10, yOffset, { maxWidth: 190 });
+      yOffset += doc.getTextDimensions(analysis.analysis.Emotions && analysis.analysis.Emotions.length > 0 ? analysis.analysis.Emotions.join(', ') : 'None', { maxWidth: 190 }).h + 5;
+      doc.text(`Reasons: ${analysis.analysis.Reasons || 'No reasons provided'}`, 10, yOffset, { maxWidth: 190 });
+      yOffset += doc.getTextDimensions(analysis.analysis.Reasons || 'No reasons provided', { maxWidth: 190 }).h + 5;
+      doc.text('Suggestions:', 10, yOffset);
+      yOffset += 7;
+      analysis.analysis.Suggestions && analysis.analysis.Suggestions.length > 0
+        ? analysis.analysis.Suggestions.forEach((suggestion, i) => {
+            doc.text(`${i + 1}. ${suggestion}`, 15, yOffset, { maxWidth: 185 });
+            yOffset += doc.getTextDimensions(`${i + 1}. ${suggestion}`, { maxWidth: 185 }).h + 3;
+          })
+        : doc.text('None', 15, yOffset);
+      yOffset += analysis.analysis.Suggestions && analysis.analysis.Suggestions.length > 0 ? 5 : 7;
+      doc.text(`Tags: ${analysis.tags && analysis.tags.length > 0 ? analysis.tags.join(', ') : 'None'}`, 10, yOffset);
+      yOffset += 10;
+      doc.text('====================================', 10, yOffset);
+      yOffset += 10;
+    });
+
+    // Save the PDF
+    doc.save(`all_analyses_${userData.username}.pdf`);
+    toast.success('All analyses downloaded as PDF successfully');
   };
 
   const toggleTranscription = (analysisId) => {
@@ -186,6 +301,18 @@ console.log(isLatest);
 
   const allTags = ['All', ...new Set(userData.analyses.flatMap((a) => a.tags || []))];
 
+  const isLatestAnalysisVisible = latestAnalysis
+    ? (() => {
+        const query = searchQuery.toLowerCase().trim();
+        const transcription = latestAnalysis.transcription || '';
+        return (
+          (transcription.toLowerCase().includes(query) ||
+           latestAnalysis._id.toString().toLowerCase().includes(query)) &&
+          (selectedTag === 'All' || (latestAnalysis.tags && latestAnalysis.tags.includes(selectedTag)))
+        );
+      })()
+    : false;
+
   return (
     <div className="profile-container">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -198,18 +325,28 @@ console.log(isLatest);
           <p className="user-email">Email: {userData.email}</p>
           <p className="user-id">ID: {userData._id}</p>
         </div>
+        <button
+          className="download-all-btn"
+          onClick={handleDownloadAllAsPDF}
+          disabled={filteredAnalyses.length === 0 && !isLatestAnalysisVisible}
+          tabIndex={0}
+        >
+          Download All as PDF
+        </button>
       </div>
 
       <div className="analyses-section">
         <div className="section-header">
-          <h2>Latest Analysis</h2>
+          <h2>Your Latest Analysis</h2>
+          {isLatestAnalysisVisible && latestAnalysis && (
+            <span className="count-badge">1</span>
+          )}
         </div>
-        {latestAnalysis ? (
+        {isLatestAnalysisVisible && latestAnalysis ? (
           <div className="analysis-card">
             <div className="card-header">
               <div className="header-left">
                 <div className="id-wrapper">
-                  <span className="analysis-id">ID: {latestAnalysis._id}</span>
                   <button
                     className="copy-btn"
                     onClick={() => handleCopyId(latestAnalysis._id)}
@@ -223,6 +360,13 @@ console.log(isLatest);
                 <span className="timestamp">
                   {new Date(latestAnalysis.createdAt).toLocaleString()}
                 </span>
+                {latestAnalysis.tags && latestAnalysis.tags.length > 0 && (
+                  <div className="tags-list">
+                    {latestAnalysis.tags.map((tag) => (
+                      <span key={tag} className="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="analysis-details">
@@ -241,12 +385,19 @@ console.log(isLatest);
                 >
                   {isDeleting ? 'Deleting...' : 'Remove'}
                 </button>
+                <button
+                  className="download-btn"
+                  onClick={() => handleDownload(latestAnalysis, true)}
+                  tabIndex={0}
+                >
+                  Download
+                </button>
               </div>
             </div>
           </div>
         ) : (
           <div className="empty-analyses">
-            <p>No latest analysis available.</p>
+            <p>No latest analysis matches the current filters.</p>
           </div>
         )}
       </div>
@@ -322,7 +473,7 @@ console.log(isLatest);
                     <div className="card-header">
                       <div className="header-left">
                         <div className="id-wrapper">
-                          <span className="analysis-id">ID: {analysis._id}</span>
+                          <span className="analysis-id">ID: ${analysis._id}</span>
                           <button
                             className="copy-btn"
                             onClick={() => handleCopyId(analysis._id)}
@@ -396,6 +547,13 @@ console.log(isLatest);
                           tabIndex={0}
                         >
                           {isDeleting ? 'Deleting...' : 'Remove'}
+                        </button>
+                        <button
+                          className="download-btn"
+                          onClick={() => handleDownload(analysis)}
+                          tabIndex={0}
+                        >
+                          Download
                         </button>
                       </div>
                     </div>
